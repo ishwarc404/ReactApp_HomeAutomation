@@ -3,9 +3,7 @@ import DevicesConnected from "./devices";
 import Modal from "react-modal";
 
 class NavigationBar extends Component {
-  state = {
-    device_counters: []
-  };
+  state = { device_counters: [] };
 
   constructor() {
     super();
@@ -54,6 +52,7 @@ class NavigationBar extends Component {
             <DevicesConnected
               key={counter.id}
               name={counter.name}
+              devicecode = {counter.devicecode}
             ></DevicesConnected>
           ))}
         </div>
@@ -62,14 +61,17 @@ class NavigationBar extends Component {
   }
 
   addnewDevice() {
-    var deviceName = prompt("Enter device name:")
-    var deviceCode = prompt("Enter device code:")
-    this.state.device_counters.push({ "name": deviceName , "devicecode" : deviceCode}); //these will be used to identify the device
+    var deviceName = prompt("Enter device name:");
+    var deviceCode = prompt("Enter device code:");
+    this.state.device_counters.push({
+      name: deviceName,
+      devicecode: deviceCode
+    }); //these will be used to identify the device
     console.log(this.state.device_counters);
     this.setState({ device_counters: this.state.device_counters });
   }
+
   removeDevice() {
-    
     this.state.device_counters.pop();
     console.log(this.state.device_counters);
     this.setState({ device_counters: this.state.device_counters });
