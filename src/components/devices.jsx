@@ -44,7 +44,7 @@ class DevicesConnected extends Component {
     console.log(this.props.devicecode);
     console.log("Clicked On");
     //let's ping the flask server from here
-    var targetUrl = "http://127.0.0.1:5000/led_on";
+    var targetUrl = "http://52.0.39.202/led_on";
     let data_retrtieved;
     await fetch(targetUrl).then(response =>
       response.json().then(data => (data_retrtieved = data))
@@ -59,7 +59,7 @@ class DevicesConnected extends Component {
     console.log("Clicked Off");
     //let's ping the flask server from here
 
-    var targetUrl = "http://127.0.0.1:5000/led_off";
+    var targetUrl = "http://52.0.39.202/led_off";
     let data_retrtieved;
     await fetch(targetUrl).then(response =>
       response.json().then(data => (data_retrtieved = data))
