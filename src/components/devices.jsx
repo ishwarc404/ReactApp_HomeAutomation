@@ -46,7 +46,9 @@ class DevicesConnected extends Component {
     //let's ping the flask server from here
     var targetUrl = " http://52.0.39.202:5000/led_on";
     let data_retrtieved;
-    await fetch(targetUrl).then(response =>
+    await fetch(targetUrl,{
+      method = "GET"
+    }).then(response =>
       response.json().then(data => (data_retrtieved = data))
     );
 
