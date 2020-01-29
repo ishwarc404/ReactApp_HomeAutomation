@@ -9,6 +9,7 @@ class NavigationBar extends Component {
     super();
     this.addnewDevice = this.addnewDevice.bind(this);
     this.removeDevice = this.removeDevice.bind(this);
+    this.importDevices = this.importDevices.bind(this);
   }
 
   render() {
@@ -16,6 +17,7 @@ class NavigationBar extends Component {
     let badge1_class = "badge m-2 badge-primary ";
     let badge2_class = "badge m-2 badge-dark ";
     let addnewdevicebutton_class = "btn  m-2 btn-warning";
+    let importdevicebutton_class = "btn  m-2 btn-success";
     return (
       <React.Fragment>
         <div className={centre_class}>
@@ -33,7 +35,14 @@ class NavigationBar extends Component {
           </span>
         </div>
         <div className={centre_class}>
-          <h1></h1>
+          <button
+            className={importdevicebutton_class}
+            onClick={this.importDevices}
+          >
+            IMPORT DEVICES
+          </button>
+          {/* </div>
+        <div className={centre_class}> */}
           <button
             className={addnewdevicebutton_class}
             onClick={this.addnewDevice}
@@ -51,8 +60,8 @@ class NavigationBar extends Component {
           {this.state.device_counters.map(counter => (
             <DevicesConnected
               key={counter.id}
-              name={counter.name}
-              devicecode = {counter.devicecode}
+              device_name={counter.device_name}
+              device_ID={counter.device_ID}
             ></DevicesConnected>
           ))}
         </div>
@@ -60,14 +69,48 @@ class NavigationBar extends Component {
     );
   }
 
+  async importDevices() {
+    var userName = prompt("Enter username:");
+    var userPassword = prompt("Enter password:");
+
+    var proxy = "https://cors-anywhere.herokuapp.com/";
+    var targetUrl = "https://api.myjson.com/bins/wx6ee";
+    let data_retrtieved;
+    this.state.device_counters = [];
+    console.log("imported");
+    await fetch(proxy + targetUrl).then(response =>
+      response.json().then(data => (data_retrtieved = data))
+    );
+    for (var i = 0; i < data_retrtieved["device_name"].length; i++) {
+      this.state.device_counters.push({
+        device_name: data_retrtieved.device_name[i],
+        device_ID: data_retrtieved.device_ID[i]
+      });
+    }
+    this.setState({ device_counters: this.state.device_counters });
+  }
+
   addnewDevice() {
     var deviceName = prompt("Enter device name:");
-    var deviceCode = prompt("Enter device code:");
+    var deviceID = prompt("Enter device code:");
+
+    if (deviceName === null) {
+      return;
+    }
+    if (deviceID.length === null) {
+      return;
+    }
+    if (deviceName.length === 0) {
+      return;
+    }
+    if (deviceID.length === 0) {
+      return;
+    }
     this.state.device_counters.push({
-      name: deviceName,
-      devicecode: deviceCode
+      device_name: deviceName,
+      device_ID: deviceID
     }); //these will be used to identify the device
-    console.log(this.state.device_counters);
+
     this.setState({ device_counters: this.state.device_counters });
   }
 

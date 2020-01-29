@@ -17,12 +17,12 @@ class DevicesConnected extends Component {
       <React.Fragment>
         <div className={centre_class}>
           <span style={{ width: 200 }} className={badge1_class}>
-            <h3>{this.props.name}</h3>
+            <h3>{this.props.device_name}</h3>
           </span>
           <button
             style={{ fontSize: 20 }}
             className={button1_class}
-            id={this.props.devicecode}
+            id={this.props.device_ID}
             onClick={this.onClickOn}
           >
             ON
@@ -30,7 +30,7 @@ class DevicesConnected extends Component {
           <button
             style={{ fontSize: 20 }}
             className={button2_class}
-            id={this.props.devicecode}
+            id={this.props.device_ID}
             onClick={this.onClickOff}
           >
             OFF
@@ -41,10 +41,10 @@ class DevicesConnected extends Component {
   }
 
   async onClickOn() {
-    console.log(this.props.devicecode);
     console.log("Clicked On");
     //let's ping the flask server from here
-    var targetUrl = "http://52.0.39.202/led_on";
+    var targetUrl = "http://52.0.39.202/"+this.props.device_ID+"_"+"on";
+    console.log(targetUrl)
     let data_retrtieved;
     await fetch(targetUrl).then(response =>
       response.json().then(data => (data_retrtieved = data))
@@ -55,11 +55,12 @@ class DevicesConnected extends Component {
   }
 
   async onClickOff() {
-    console.log(this.props.devicecode);
+
     console.log("Clicked Off");
     //let's ping the flask server from here
 
-    var targetUrl = "http://52.0.39.202/led_off";
+    var targetUrl = "http://52.0.39.202/"+this.props.device_ID+"_"+"off";
+    console.log(targetUrl)
     let data_retrtieved;
     await fetch(targetUrl).then(response =>
       response.json().then(data => (data_retrtieved = data))
