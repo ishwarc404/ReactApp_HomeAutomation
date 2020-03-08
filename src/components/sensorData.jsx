@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import temp from "./temperature.png";
+import Temperature from "./Temperature.png";
+import Motion from "./Motion.png";
 
 class SensorData extends Component {
+  constructor(props) {
+    super(props);
+    console.log(typeof this.props.sensor_name);
+  }
   render() {
     let centre_class = "d-flex justify-content-center";
     return (
@@ -12,7 +17,8 @@ class SensorData extends Component {
               <h5 class="card-title">{this.props.sensor_name}</h5>
               <p class="card-text">
                 <h3>
-                  <img src={temp} alt="" style={{ height: 90 }} />
+                  <img src={require("./assets/images/" + this.props.sensor_name + ".png")} style={{ height: 90 }} />
+                  &nbsp; &nbsp;
                   {this.props.sensor_value}
                 </h3>
               </p>

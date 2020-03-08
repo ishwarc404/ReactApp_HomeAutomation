@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DevicesConnected from "./devices";
 import SensorData from "./sensorData";
 import Modal from "react-modal";
+import Test from  "./test"
 
 class NavigationBar extends Component {
   state = { device_counters: [], sensorInfo: [] };
@@ -16,6 +17,7 @@ class NavigationBar extends Component {
 
   render() {
     let centre_class = "d-flex justify-content-center";
+    let div_class = "d-inline justify-content-center"
     let badge1_class = "badge m-2 badge-primary ";
     let badge2_class = "badge m-2 badge-dark ";
     let addnewdevicebutton_class = "btn  m-2 btn-dark";
@@ -85,17 +87,17 @@ class NavigationBar extends Component {
             SENSOR INFORMATION
           </button>
         </div>
-        <br/>
-        <div className={centre_class}>
+        <br />
+        <div className={div_class}>
           {this.state.sensorInfo.map(counter => (
+            <div> 
             <SensorData
               key={counter.id}
               sensor_name={counter.sensor_name}
               sensor_value={counter.sensor_value}
             ></SensorData>
-  
+            </div> 
           ))}
-          {/* need to code the above part */}
         </div>
       </div>
     );
@@ -106,7 +108,7 @@ class NavigationBar extends Component {
     var userPassword = prompt("Enter password:");
 
     var proxy = "https://cors-anywhere.herokuapp.com/";
-    var targetUrl = "https://api.myjson.com/bins/wx6ee";
+    var targetUrl = "https://api.myjson.com/bins/1a5jya";
     let data_retrtieved;
     this.state.device_counters = [];
     console.log("imported");
@@ -152,17 +154,26 @@ class NavigationBar extends Component {
     this.setState({ device_counters: this.state.device_counters });
   }
 
-  importSensorData() {
-    // this.state.sensorInfo = []
+  async importSensorData() {
+    this.state.sensorInfo = []
     //need to set up an async request here to the database or to the AWS Console
 
-    this.state.sensorInfo.push({
-      sensor_name: "Temperature",
-      sensor_ID: "device_ID",
-      sensor_value: "35 °C"
-    });
+    var proxy = "https://cors-anywhere.herokuapp.com/";
+    var targetUrl = "https://api.myjson.com/bins/1d6v4y";
+    let data_retrtieved;
+    this.state.sensorInfo = [];
+    console.log("imported sensor info");
+    await fetch(proxy + targetUrl).then(response =>
+      response.json().then(data => (data_retrtieved = data))
+    );
+    for (var i = 0; i < data_retrtieved["sensor_name"].length; i++) {
+      this.state.sensorInfo.push({
+        sensor_name: data_retrtieved.sensor_name[i],
+        sensor_ID: data_retrtieved.sensor_ID[i],
+        sensor_value: data_retrtieved.sensor_value[i]
+      });
+    }
     this.setState({ sensorInfo: this.state.sensorInfo });
-    
   }
 }
 
