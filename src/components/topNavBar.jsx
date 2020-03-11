@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import DevicesConnected from "./devices";
 import SensorData from "./sensorData";
-import Modal from "react-modal";
-import Test from  "./test"
+import Button from "@material-ui/core/Button";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import MenuItem from "@material-ui/core/MenuItem";
+import { spacing } from "@material-ui/system";
 
 class NavigationBar extends Component {
   state = { device_counters: [], sensorInfo: [] };
@@ -17,86 +24,68 @@ class NavigationBar extends Component {
 
   render() {
     let centre_class = "d-flex justify-content-center";
-    let div_class = "d-inline justify-content-center"
+    let div_class = "d-inline justify-content-center";
     let badge1_class = "badge m-2 badge-primary ";
     let badge2_class = "badge m-2 badge-dark ";
-    let addnewdevicebutton_class = "btn  m-2 btn-dark";
-    let importdevicebutton_class = "btn  m-2 btn-dark";
+    let addnewdevicebutton_class = "m-8";
+    let importdevicebutton_class = "m-2";
+
+    // let menuButton = {
+    //   marginRight: theme.spacing(20)
+    // };
     return (
       <div>
-        <div>
-          <h2
-            style={{
-              fontSize: 50,
-              color: "white",
-              fontFamily: "Helvetica Neue"
-            }}
-            className={centre_class}
-          >
-            Home Automation System
-          </h2>
-        </div>
+        <AppBar position="static">
+          <Toolbar variant="regular">
+            <Typography variant="title" color="inherit">
+              Home Automation System
+            </Typography>
+            <Box ml="auto">
+              <Button variant="contained" onClick={this.importDevices}>
+                IMPORT DEVICES
+              </Button>
+              &nbsp; &nbsp;
+              <Button variant="contained" onClick={this.importSensorData}>
+                SENSOR INFORMATION
+              </Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <br />
+        <br />
         <div>
           <h2
             style={{
               fontSize: 30,
               color: "#e6e6e6",
-              fontFamily: "Helvetica Neue"
+              fontFamily: "Roboto"
             }}
             className={centre_class}
           >
             Devices Connected
           </h2>
         </div>
-        <div className={centre_class}>
-          <button
-            className={importdevicebutton_class}
-            onClick={this.importDevices}
-          >
-            IMPORT DEVICES
-          </button>
-          {/* </div>
-        <div className={centre_class}> */}
-          <button
-            className={addnewdevicebutton_class}
-            onClick={this.addnewDevice}
-          >
-            <h2>+</h2>
-          </button>
-          <button
-            className={addnewdevicebutton_class}
-            onClick={this.removeDevice}
-          >
-            <h2>-</h2>
-          </button>
-        </div>
-        <div>
+        <div className={div_class}>
           {this.state.device_counters.map(counter => (
-            <DevicesConnected
-              key={counter.id}
-              device_name={counter.device_name}
-              device_ID={counter.device_ID}
-            ></DevicesConnected>
+            <Box mx="auto">
+              <DevicesConnected
+                key={counter.id}
+                device_name={counter.device_name}
+                device_ID={counter.device_ID}
+              ></DevicesConnected>
+            </Box>
           ))}
-        </div>
-        <div className={centre_class}>
-          <button
-            className={importdevicebutton_class}
-            onClick={this.importSensorData}
-          >
-            SENSOR INFORMATION
-          </button>
         </div>
         <br />
         <div className={div_class}>
           {this.state.sensorInfo.map(counter => (
-            <div> 
-            <SensorData
-              key={counter.id}
-              sensor_name={counter.sensor_name}
-              sensor_value={counter.sensor_value}
-            ></SensorData>
-            </div> 
+            <div>
+              <SensorData
+                key={counter.id}
+                sensor_name={counter.sensor_name}
+                sensor_value={counter.sensor_value}
+              ></SensorData>
+            </div>
           ))}
         </div>
       </div>
@@ -155,7 +144,7 @@ class NavigationBar extends Component {
   }
 
   async importSensorData() {
-    this.state.sensorInfo = []
+    this.state.sensorInfo = [];
     //need to set up an async request here to the database or to the AWS Console
 
     var proxy = "https://cors-anywhere.herokuapp.com/";

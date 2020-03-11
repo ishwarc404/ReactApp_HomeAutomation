@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css"; //importing bootstrap
-import Modal from 'react-modal';
+
 // import axios from 'axios'
 
 
