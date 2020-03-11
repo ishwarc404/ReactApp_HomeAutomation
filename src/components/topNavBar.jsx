@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import DevicesConnected from "./devices";
 import SensorData from "./sensorData";
 import Button from "@material-ui/core/Button";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
-import { spacing } from "@material-ui/system";
+import Animations from "./skeleton";
 
 class NavigationBar extends Component {
-  state = { device_counters: [], sensorInfo: [] };
+  state = {
+    device_counters: [],
+    sensorInfo: [],
+    mainScreenMessage: "Click on Import Devices to get started"
+  };
 
   constructor() {
     super();
@@ -24,6 +25,7 @@ class NavigationBar extends Component {
 
   render() {
     let centre_class = "d-flex justify-content-center";
+    let devices_class = "d-flex flex-wrap justify-content-around";
     let div_class = "d-inline justify-content-center";
     let badge1_class = "badge m-2 badge-primary ";
     let badge2_class = "badge m-2 badge-dark ";
@@ -62,15 +64,17 @@ class NavigationBar extends Component {
             }}
             className={centre_class}
           >
-            Devices Connected
+            {this.state.mainScreenMessage}
           </h2>
+          <br />
         </div>
-        <Box className={div_class}>
+        <Box className={devices_class}>
           {this.state.device_counters.map(counter => (
             <DevicesConnected
               key={counter.id}
               device_name={counter.device_name}
               device_ID={counter.device_ID}
+              className={devices_class}
             ></DevicesConnected>
           ))}
         </Box>
@@ -108,7 +112,16 @@ class NavigationBar extends Component {
         device_ID: data_retrtieved.device_ID[i]
       });
     }
-    this.setState({ device_counters: this.state.device_counters });
+    if (data_retrtieved["device_name"].length > 0) {
+      this.state.mainScreenMessage = "Connected Devices";
+    } else {
+      this.state.mainScreenMessage = "No devices available!";
+    }
+
+    this.setState({
+      device_counters: this.state.device_counters,
+      mainScreenMessage: this.state.mainScreenMessage
+    });
   }
 
   addnewDevice() {
