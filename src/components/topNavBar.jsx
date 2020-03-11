@@ -65,17 +65,15 @@ class NavigationBar extends Component {
             Devices Connected
           </h2>
         </div>
-        <div className={div_class}>
+        <Box className={div_class}>
           {this.state.device_counters.map(counter => (
-            <Box mx="auto">
-              <DevicesConnected
-                key={counter.id}
-                device_name={counter.device_name}
-                device_ID={counter.device_ID}
-              ></DevicesConnected>
-            </Box>
+            <DevicesConnected
+              key={counter.id}
+              device_name={counter.device_name}
+              device_ID={counter.device_ID}
+            ></DevicesConnected>
           ))}
-        </div>
+        </Box>
         <br />
         <div className={div_class}>
           {this.state.sensorInfo.map(counter => (

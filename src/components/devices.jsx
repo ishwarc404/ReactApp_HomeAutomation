@@ -30,33 +30,41 @@ class DevicesConnected extends Component {
     let badge1_class = "badge m-2 badge-dark ";
     let button1_class = "btn  m-2 btn-success";
     let button2_class = "btn m-2 btn-danger";
+    let card_class = {
+      minWidth: 275
+    };
     return (
       <React.Fragment>
-        <Box>
-          <Chip label={this.props.device_name} style={{fontSize: 30 }} />
-          &nbsp; &nbsp;
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{ fontSize: 15 }}
-            id={this.props.device_ID}
-            onClick={this.onClickOn}
-          >
-            ON
-          </Button>
-          &nbsp; &nbsp;
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            style={{ fontSize: 15 }}
-            id={this.props.device_ID}
-            onClick={this.onClickOff}
-          >
-            OFF
-          </Button>
-        </Box>
+        <Card className={card_class}>
+          <CardContent>
+            <Typography color="textSecondary">
+              {this.props.device_name}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{ fontSize: 15 }}
+              id={this.props.device_ID}
+              onClick={this.onClickOn}
+            >
+              ON
+            </Button>
+            &nbsp; &nbsp;
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              style={{ fontSize: 15 }}
+              id={this.props.device_ID}
+              onClick={this.onClickOff}
+            >
+              OFF
+            </Button>
+          </CardActions>
+        </Card>
       </React.Fragment>
     );
   }
