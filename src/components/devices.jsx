@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import bulb from "./assets/images/lightbulb.jpg";
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
+import Badge from "@material-ui/core/Badge";
+import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
 
 const useStyles = makeStyles({
   root: {
@@ -28,10 +30,10 @@ const useStyles = makeStyles({
     color: "#212121"
   },
   off_button: {
-    backgroundColor: red[800]
+    backgroundColor: red[600]
   },
   on_button: {
-    backgroundColor: blue[800]
+    backgroundColor: blue[700]
   }
 });
 
@@ -88,7 +90,7 @@ export default function MediaCard(props) {
           // id={this.props.device_ID}
           onClick={onButtonClicked}
         >
-          ON
+          <WbIncandescentIcon /> &nbsp; ON
         </Button>
         &nbsp; &nbsp;
         <Button

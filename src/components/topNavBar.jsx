@@ -8,13 +8,23 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 // import Animations from "./skeleton";
 import SensorControlCard from "./sensor_card";
+import TransitionsModal from "./modal_login";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 
+const useStyles = theme => ({
+  topBar: {
+    backgroundColor: "#1976d2",
+    fontSize: 20
+  },
+  buttons: {}
+});
 class NavigationBar extends Component {
   state = {
     device_counters: [],
     sensorInfo: [],
-    mainScreenMessage: "Click on Import Devices to get started",
-    sensorMessage: ""
+    mainScreenMessage: "SignIn to get started",
+    sensorMessage: "",
+    userEmailID: ""
   };
 
   constructor() {
@@ -33,23 +43,32 @@ class NavigationBar extends Component {
     let badge2_class = "badge m-2 badge-dark ";
     let addnewdevicebutton_class = "m-8";
     let importdevicebutton_class = "m-2";
+    const { classes } = this.props;
 
     // let menuButton = {
     //   marginRight: theme.spacing(20)
     // };
     return (
       <div>
-        <AppBar position="static">
+        <AppBar className={classes.topBar} position="static">
           <Toolbar variant="regular">
             <Typography variant="title" color="inherit">
               Home Automation System
             </Typography>
             <Box ml="auto">
-              <Button variant="contained" onClick={this.importDevices}>
+              <Button
+                variant="contained"
+                onClick={this.importDevices}
+                className={classes.buttons}
+              >
                 IMPORT DEVICES
               </Button>
               &nbsp; &nbsp;
-              <Button variant="contained" onClick={this.importSensorData}>
+              <Button
+                variant="contained"
+                onClick={this.importSensorData}
+                className={classes.buttons}
+              >
                 SENSOR INFORMATION
               </Button>
             </Box>
@@ -57,18 +76,21 @@ class NavigationBar extends Component {
         </AppBar>
         <br />
         <br />
-        <div>
+        <div className={centre_class}>
           <h2
             style={{
               fontSize: 30,
               color: "#212121",
               fontFamily: "Roboto"
             }}
-            className={centre_class}
           >
             {this.state.mainScreenMessage}
           </h2>
           <br />
+        </div>
+        <br />
+        <div className={centre_class}>
+          <TransitionsModal></TransitionsModal>
         </div>
         <Box className={devices_class}>
           {this.state.device_counters.map(counter => (
@@ -162,6 +184,7 @@ class NavigationBar extends Component {
   }
 
   removeDevice() {
+    //maybe when we use this functionality, we remove a specefic device only.
     this.state.device_counters.pop();
     console.log(this.state.device_counters);
     this.setState({ device_counters: this.state.device_counters });
@@ -195,4 +218,4 @@ class NavigationBar extends Component {
   }
 }
 
-export default NavigationBar;
+export default withStyles(useStyles)(NavigationBar);
