@@ -6,13 +6,15 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Animations from "./skeleton";
+// import Animations from "./skeleton";
+import SensorControlCard from "./sensor_card";
 
 class NavigationBar extends Component {
   state = {
     device_counters: [],
     sensorInfo: [],
-    mainScreenMessage: "Click on Import Devices to get started"
+    mainScreenMessage: "Click on Import Devices to get started",
+    sensorMessage: ""
   };
 
   constructor() {
@@ -59,7 +61,7 @@ class NavigationBar extends Component {
           <h2
             style={{
               fontSize: 30,
-              color: "#e6e6e6",
+              color: "#212121",
               fontFamily: "Roboto"
             }}
             className={centre_class}
@@ -79,17 +81,28 @@ class NavigationBar extends Component {
           ))}
         </Box>
         <br />
-        <div className={div_class}>
+        <br />
+        <h2
+          style={{
+            fontSize: 30,
+            color: "#212121",
+            fontFamily: "Roboto"
+          }}
+          className={centre_class}
+        >
+          {this.state.sensorMessage}
+        </h2>
+        <Box className={centre_class}>
           {this.state.sensorInfo.map(counter => (
             <div>
-              <SensorData
-                key={counter.id}
+              <SensorControlCard
                 sensor_name={counter.sensor_name}
                 sensor_value={counter.sensor_value}
-              ></SensorData>
+              ></SensorControlCard>
+              &nbsp;&nbsp;&nbsp;
             </div>
           ))}
-        </div>
+        </Box>
       </div>
     );
   }
@@ -173,7 +186,12 @@ class NavigationBar extends Component {
         sensor_value: data_retrtieved.sensor_value[i]
       });
     }
-    this.setState({ sensorInfo: this.state.sensorInfo });
+    console.log(this.state.sensorInfo);
+    this.state.sensorMessage = "Available sensor data";
+    this.setState({
+      sensorInfo: this.state.sensorInfo,
+      sensorMessage: this.state.sensorMessage
+    });
   }
 }
 

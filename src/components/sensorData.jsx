@@ -5,7 +5,7 @@ import Motion from "./Motion.png";
 class SensorData extends Component {
   constructor(props) {
     super(props);
-    console.log(typeof this.props.sensor_name);
+    console.log(props);
   }
   render() {
     let centre_class = "d-flex justify-content-center";
@@ -17,7 +17,12 @@ class SensorData extends Component {
               <h5 class="card-title">{this.props.sensor_name}</h5>
               <p class="card-text">
                 <h3>
-                  <img src={require("./assets/images/" + this.props.sensor_name + ".png")} style={{ height: 90 }} />
+                  <img
+                    src={require("./assets/images/" +
+                      this.props.sensor_name +
+                      ".png")}
+                    style={{ height: 90 }}
+                  />
                   &nbsp; &nbsp;
                   {this.props.sensor_value}
                 </h3>

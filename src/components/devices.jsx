@@ -8,14 +8,30 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import bulb from "./assets/images/lightbulb.jpg";
+import red from "@material-ui/core/colors/red";
+import blue from "@material-ui/core/colors/blue";
+
 const useStyles = makeStyles({
   root: {
     width: 350,
     Height: 250,
-    backgroundColor: "white"
+    backgroundColor: "#FFFFFF",
+    borderStyle: "solid",
+    borderWidth: "0.2",
+    borderColor: "#FFFFFF",
+    borderRadius: 7
   },
   media: {
-    height: 140
+    height: 180
+  },
+  text: {
+    color: "#212121"
+  },
+  off_button: {
+    backgroundColor: red[800]
+  },
+  on_button: {
+    backgroundColor: blue[800]
   }
 });
 
@@ -53,19 +69,22 @@ export default function MediaCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={bulb} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.device_name}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <CardMedia className={classes.media} image={bulb} />
+      <CardContent>
+        <Typography
+          className={classes.text}
+          gutterBottom
+          variant="h5"
+          component="h2"
+        >
+          {props.device_name}
+        </Typography>
+      </CardContent>
       <CardActions>
         <Button
           variant="contained"
-          color="primary"
           style={{ fontSize: 20 }}
+          className={classes.on_button}
           // id={this.props.device_ID}
           onClick={onButtonClicked}
         >
@@ -74,8 +93,8 @@ export default function MediaCard(props) {
         &nbsp; &nbsp;
         <Button
           variant="contained"
-          color="secondary"
           style={{ fontSize: 20 }}
+          className={classes.off_button}
           // id={this.props.device_ID}
           onClick={offButtonClicked}
         >
