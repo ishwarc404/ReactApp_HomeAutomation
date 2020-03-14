@@ -10,7 +10,7 @@ import Box from "@material-ui/core/Box";
 import SensorControlCard from "./sensor_card";
 import TransitionsModal from "./modal_login";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-
+import LinearLoader from "./linearLoading";
 const useStyles = theme => ({
   topBar: {
     backgroundColor: "#1976d2",
@@ -24,7 +24,10 @@ class NavigationBar extends Component {
     sensorInfo: [],
     mainScreenMessage: "SignIn to get started",
     sensorMessage: "",
-    userEmailID: ""
+    userEmailID: "oldemail",
+    userPassword: "",
+    SignInButtonState: [1],
+    linearLoading: []
   };
 
   constructor() {
@@ -33,6 +36,7 @@ class NavigationBar extends Component {
     this.removeDevice = this.removeDevice.bind(this);
     this.importDevices = this.importDevices.bind(this);
     this.importSensorData = this.importSensorData.bind(this);
+    this.testfunction = this.testfunction.bind(this);
   }
 
   render() {
@@ -90,8 +94,18 @@ class NavigationBar extends Component {
         </div>
         <br />
         <div className={centre_class}>
-          <TransitionsModal></TransitionsModal>
+          {this.state.SignInButtonState.map(counter => (
+            <TransitionsModal
+              testfunction={this.testfunction} //passing the callback as props
+            ></TransitionsModal>
+          ))}
         </div>
+        <div className={centre_class}>
+          {this.state.linearLoading.map(counter => (
+            <LinearLoader></LinearLoader>
+          ))}
+        </div>
+
         <Box className={devices_class}>
           {this.state.device_counters.map(counter => (
             <DevicesConnected
@@ -130,8 +144,9 @@ class NavigationBar extends Component {
   }
 
   async importDevices() {
-    var userName = prompt("Enter username:");
-    var userPassword = prompt("Enter password:");
+    //do not need the following anymore
+    // var userName = prompt("Enter username:");
+    // var userPassword = prompt("Enter password:");
 
     var proxy = "https://cors-anywhere.herokuapp.com/";
     var targetUrl = "https://api.myjson.com/bins/1a5jya";
@@ -153,7 +168,10 @@ class NavigationBar extends Component {
       this.state.mainScreenMessage = "No devices available!";
     }
 
+    this.state.linearLoading = []; //removing the linear loader
+
     this.setState({
+      linearLoading: this.state.linearLoading,
       device_counters: this.state.device_counters,
       mainScreenMessage: this.state.mainScreenMessage
     });
@@ -215,6 +233,29 @@ class NavigationBar extends Component {
       sensorInfo: this.state.sensorInfo,
       sensorMessage: this.state.sensorMessage
     });
+  }
+
+  testfunction(userEmailID, userPassword) {
+    // alert("EmailID: " + userEmailID + "\n" + "Password: " + userPassword);
+    this.state.userEmailID = userEmailID;
+    this.state.userPassword = userPassword;
+    this.state.linearLoading = [1];
+    this.state.SignInButtonState = []; //empty because we need to remove it.
+    this.state.mainScreenMessage = "Loading Devices";
+
+    setTimeout(() => {
+      this.setState({
+        userEmailID: this.state.userEmailID,
+        userPassword: this.state.userPassword,
+        linearLoading: this.state.linearLoading,
+        SignInButtonState: this.state.SignInButtonState,
+        mainScreenMessage: this.state.mainScreenMessage
+      });
+    }, 3500);
+
+    setTimeout(() => {
+      this.importDevices();
+    }, 6000);
   }
 }
 

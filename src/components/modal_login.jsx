@@ -18,7 +18,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Container from "@material-ui/core/Container";
-
+import SignInButton from "./signinButton";
 const useStyles = theme => ({
   modal: {
     display: "flex",
@@ -48,12 +48,15 @@ const useStyles = theme => ({
 
 class TransitionsModal extends Component {
   state = {
-    open: false
+    open: false,
+    userEmailID: "",
+    userPassword: ""
   };
   constructor() {
     super();
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.sendDataToParent = this.sendDataToParent.bind(this);
   }
   render() {
     const { classes } = this.props;
@@ -82,66 +85,74 @@ class TransitionsModal extends Component {
           }}
         >
           <Fade in={this.state.open}>
-              <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <div className={classes.paper}>
-                  <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                  </Avatar>
-                  <Typography component="h1" variant="h5">
-                    Sign in
-                  </Typography>
-                  <form className={classes.form} noValidate>
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      autoFocus
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Remember me"
-                    />
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                    >
-                      Sign In
-                    </Button>
-                    <Grid container>
-                      <Grid item xs>
-                        <Link href="#" variant="body2">
-                          Forgot password?
-                        </Link>
-                      </Grid>
-                      <Grid item>
-                        <Link href="#" variant="body2">
-                          {"Don't have an account? Sign Up"}
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  </form>
-                </div>
-              </Container>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Sign in
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={this.state.userEmailID}
+                  onChange={e => this.setState({ userEmailID: e.target.value })}
+                  autoFocus
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={this.state.userPassword}
+                  onChange={e =>
+                    this.setState({ userPassword: e.target.value })
+                  }
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                {/* <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={this.sendDataToParent}
+                >
+                  Sign In
+                </Button> */}
+                <Button onClick={this.sendDataToParent}>
+                  <SignInButton> </SignInButton>
+                </Button>
+                {/* <Grid container>
+                  <Grid item xs>
+                    <Link href="#" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="#" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid> */}
+              </div>
+            </Container>
           </Fade>
         </Modal>
       </div>
@@ -160,6 +171,20 @@ class TransitionsModal extends Component {
     this.setState({
       open: this.state.open
     });
+  }
+
+  sendDataToParent() {
+    //maybe we can do all the api calls here only
+    //maybe we donot have to. //will look into it later on.
+    this.props.testfunction(this.state.userEmailID, this.state.userPassword); //sending parent the data
+    //the above function will also remove the sign in button
+    setTimeout(() => {
+      //closing the modal afterwards
+      this.state.open = false;
+      this.setState({
+        open: this.state.open
+      });
+    }, 3000);
   }
 }
 
