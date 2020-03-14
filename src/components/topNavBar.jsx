@@ -27,7 +27,8 @@ class NavigationBar extends Component {
     userEmailID: "oldemail",
     userPassword: "",
     SignInButtonState: [1],
-    linearLoading: []
+    linearLoading: [],
+    import_sensorButtonState: []
   };
 
   constructor() {
@@ -60,21 +61,27 @@ class NavigationBar extends Component {
               Home Automation System
             </Typography>
             <Box ml="auto">
-              <Button
-                variant="contained"
-                onClick={this.importDevices}
-                className={classes.buttons}
-              >
-                IMPORT DEVICES
-              </Button>
+              <div>
+                {this.state.import_sensorButtonState.map(counter => (
+                  <Button
+                    variant="contained"
+                    onClick={this.importDevices}
+                    className={classes.buttons}
+                  >
+                    IMPORT DEVICES
+                  </Button>
+                ))}
               &nbsp; &nbsp;
-              <Button
-                variant="contained"
-                onClick={this.importSensorData}
-                className={classes.buttons}
-              >
-                SENSOR INFORMATION
-              </Button>
+                {this.state.import_sensorButtonState.map(counter => (
+                  <Button
+                    variant="contained"
+                    onClick={this.importSensorData}
+                    className={classes.buttons}
+                  >
+                    SENSOR INFORMATION
+                  </Button>
+                ))}
+              </div>
             </Box>
           </Toolbar>
         </AppBar>
@@ -169,11 +176,12 @@ class NavigationBar extends Component {
     }
 
     this.state.linearLoading = []; //removing the linear loader
-
+    this.state.import_sensorButtonState = [1];
     this.setState({
       linearLoading: this.state.linearLoading,
       device_counters: this.state.device_counters,
-      mainScreenMessage: this.state.mainScreenMessage
+      mainScreenMessage: this.state.mainScreenMessage,
+      import_sensorButtonState: this.state.import_sensorButtonState
     });
   }
 
