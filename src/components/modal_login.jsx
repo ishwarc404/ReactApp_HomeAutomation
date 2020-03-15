@@ -6,7 +6,6 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 import green from "@material-ui/core/colors/green";
-import SignIn from "./sign_in";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Avatar from "@material-ui/core/Avatar";
