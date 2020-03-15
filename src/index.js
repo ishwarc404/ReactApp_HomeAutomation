@@ -9,8 +9,10 @@ import "bootstrap/dist/css/bootstrap.css"; //importing bootstrap
 
 //importing all the components
 import NavigationBar from "./components/topNavBar"; //always use uppercase letters
-
-ReactDOM.render(<NavigationBar />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
+setTimeout(() => {
+  ReactDOM.render(<NavigationBar />, document.getElementById("root"));
+}, 4000);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
