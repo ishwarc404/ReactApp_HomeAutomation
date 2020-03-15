@@ -12,6 +12,8 @@ import TransitionsModal from "./modal_login";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import LinearLoader from "./linearLoading";
 import Grid from "@material-ui/core/Grid";
+import FadeIn from "react-fade-in";
+
 const useStyles = theme => ({
   topBar: {
     backgroundColor: "#18191b",
@@ -59,85 +61,89 @@ class NavigationBar extends Component {
     //   marginRight: theme.spacing(20)
     // };
     return (
-      <div>
-        <AppBar className={classes.topBar} position="static">
-          <Toolbar variant="regular">
-            <Typography variant="title">Home Automation System</Typography>
-            <Box ml="auto">
-              <div>
-                {this.state.import_sensorButtonState.map(counter => (
-                  <Button
-                    variant="contained"
-                    onClick={this.importDevices}
-                    className={classes.buttons}
-                    color="secondary"
-                  >
-                    IMPORT DEVICES
-                  </Button>
-                ))}
-                &nbsp; &nbsp;
-                {this.state.import_sensorButtonState.map(counter => (
-                  <Button
-                    variant="contained"
-                    onClick={this.importSensorData}
-                    className={classes.buttons}
-                    color="secondary"
-                  >
-                    SENSOR INFORMATION
-                  </Button>
-                ))}
-              </div>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <br />
-        <br />
-        <div className={centre_class}>
-          <h2
-            style={{
-              fontSize: 30,
-              color: "#FFFFFF",
-              fontFamily: "Roboto"
-            }}
-          >
-            {this.state.mainScreenMessage}
-          </h2>
+      <FadeIn>
+        <div>
+          <AppBar className={classes.topBar} position="static">
+            <Toolbar variant="regular">
+              <Typography variant="title">Home Automation System</Typography>
+              <Box ml="auto">
+                <div>
+                  {this.state.import_sensorButtonState.map(counter => (
+                    <Button
+                      variant="contained"
+                      onClick={this.importDevices}
+                      className={classes.buttons}
+                      color="secondary"
+                    >
+                      IMPORT DEVICES
+                    </Button>
+                  ))}
+                  &nbsp; &nbsp;
+                  {this.state.import_sensorButtonState.map(counter => (
+                    <Button
+                      variant="contained"
+                      onClick={this.importSensorData}
+                      className={classes.buttons}
+                      color="secondary"
+                    >
+                      SENSOR INFORMATION
+                    </Button>
+                  ))}
+                </div>
+              </Box>
+            </Toolbar>
+          </AppBar>
           <br />
-        </div>
-        <br />
-        <div className={centre_class}>
-          {this.state.SignInButtonState.map(counter => (
-            <TransitionsModal
-              testfunction={this.testfunction} //passing the callback as props
-            ></TransitionsModal>
-          ))}
-        </div>
-        <div className={centre_class}>
-          {this.state.linearLoading.map(counter => (
-            <LinearLoader></LinearLoader>
-          ))}
-        </div>
-
-        <Grid container>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={2}>
-              {this.state.device_counters.map(counter => (
-                <Grid item>
-                  <DevicesConnected
-                    key={counter.id}
-                    device_name={counter.device_name}
-                    device_ID={counter.device_ID}
-                    className={devices_class}
-                  ></DevicesConnected>
+          <br />
+          <div className={centre_class}>
+            <h2
+              style={{
+                fontSize: 30,
+                color: "#FFFFFF",
+                fontFamily: "Roboto"
+              }}
+            >
+              {this.state.mainScreenMessage}
+            </h2>
+            <br />
+          </div>
+          <br />
+          <div className={centre_class}>
+            {this.state.SignInButtonState.map(counter => (
+              <TransitionsModal
+                testfunction={this.testfunction} //passing the callback as props
+              ></TransitionsModal>
+            ))}
+          </div>
+          <div className={centre_class}>
+            {this.state.linearLoading.map(counter => (
+              <LinearLoader></LinearLoader>
+            ))}
+          </div>
+          
+            <Grid container>
+              <Grid item xs={12}>
+                <Grid container justify="center" spacing={2}>
+                  {this.state.device_counters.map(counter => (
+                    <Grid item>
+                      <FadeIn>
+                      <DevicesConnected
+                        key={counter.id}
+                        device_name={counter.device_name}
+                        device_ID={counter.device_ID}
+                        className={devices_class}
+                      ></DevicesConnected>
+                       </FadeIn>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
+              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
+         
 
-        <br />
-        <br />
-        {/* <h2
+          <br />
+          <br />
+          {/* <h2
           style={{
             fontSize: 30,
             color: "#FFFFFF",
@@ -147,23 +153,25 @@ class NavigationBar extends Component {
         >
           {this.state.sensorMessage}
         </h2> */}
-
-        <Grid container>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={2}>
-              {this.state.sensorInfo.map(counter => (
-                <Grid item>
-                  <SensorControlCard
-                    sensor_name={counter.sensor_name}
-                    sensor_value={counter.sensor_value}
-                  ></SensorControlCard>
+          
+            <Grid container>
+              <Grid item xs={12}>
+                <Grid container justify="center" spacing={2}>
+                  {this.state.sensorInfo.map(counter => (
+                    <Grid item>
+                      <FadeIn>
+                      <SensorControlCard
+                        sensor_name={counter.sensor_name}
+                        sensor_value={counter.sensor_value}
+                      ></SensorControlCard>
+                       </FadeIn>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
+              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-
-        {/* <Box className={centre_class}>
+         
+          {/* <Box className={centre_class}>
           {this.state.sensorInfo.map(counter => (
             <div>
               <SensorControlCard
@@ -174,7 +182,8 @@ class NavigationBar extends Component {
             </div>
           ))}
         </Box> */}
-      </div>
+        </div>
+      </FadeIn>
     );
   }
 
