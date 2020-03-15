@@ -91,7 +91,7 @@ class NavigationBar extends Component {
           <h2
             style={{
               fontSize: 30,
-              color: "#212121",
+              color: "#FFFFFF",
               fontFamily: "Roboto"
             }}
           >
@@ -128,7 +128,7 @@ class NavigationBar extends Component {
         <h2
           style={{
             fontSize: 30,
-            color: "#212121",
+            color: "#FFFFFF",
             fontFamily: "Roboto"
           }}
           className={centre_class}

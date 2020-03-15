@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import bulb from "./assets/images/lightbulb.jpg";
+import bulb from "./assets/images/lightbulb.png";
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
 import Badge from "@material-ui/core/Badge";
@@ -17,10 +17,7 @@ const useStyles = makeStyles({
   root: {
     width: 350,
     Height: 250,
-    backgroundColor: "#FFFFFF",
-    borderStyle: "solid",
-    borderWidth: "0.2",
-    borderColor: "#FFFFFF",
+    opacity: 0.9,
     borderRadius: 7
   },
   media: {

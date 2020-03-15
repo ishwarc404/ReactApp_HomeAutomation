@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.css"; //importing bootstrap
 
 // import axios from 'axios'
 
-
 //importing all the components
 import NavigationBar from "./components/topNavBar"; //always use uppercase letters
 
