@@ -9,10 +9,18 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import sensorimage from "./assets/images/Temperature.png";
+import Divider from "@material-ui/core/Divider";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    maxWidth: 250
+    maxWidth: 250,
+    minWidth: 150,
+    Height: 150,
+    opacity: 0.9,
+    borderRadius: 10,
+    backgroundColor: "#2e3133",
+    borderStyle: "solid",
+    borderColor: "#2e3133"
   },
   details: {
     display: "flex",
@@ -24,6 +32,9 @@ const useStyles = makeStyles(theme => ({
   cover: {
     width: 151
   },
+  text: {
+    color: "#FFFFFF"
+  }
 }));
 
 export default function SensorControlCard(props) {
@@ -35,24 +46,25 @@ export default function SensorControlCard(props) {
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
+          <Typography component="h5" variant="h5" className={classes.text}>
             {props.sensor_name}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography variant="subtitle1" className={classes.text}>
             Sensor
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <hr/>
+          <Typography variant="subtitle1" className={classes.text}>
             {props.sensor_value}
           </Typography>
         </CardContent>
       </div>
-      <CardMedia>
+      {/* <CardMedia>
         <img
           src={require("./assets/images/" + props.sensor_name + ".png")}
           alt=""
           style={{ height: 80 }}
         />
-      </CardMedia>
+      </CardMedia> */}
     </Card>
   );
 }

@@ -137,7 +137,7 @@ class NavigationBar extends Component {
 
         <br />
         <br />
-        <h2
+        {/* <h2
           style={{
             fontSize: 30,
             color: "#FFFFFF",
@@ -146,8 +146,24 @@ class NavigationBar extends Component {
           className={centre_class}
         >
           {this.state.sensorMessage}
-        </h2>
-        <Box className={centre_class}>
+        </h2> */}
+
+        <Grid container>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={2}>
+              {this.state.sensorInfo.map(counter => (
+                <Grid item>
+                  <SensorControlCard
+                    sensor_name={counter.sensor_name}
+                    sensor_value={counter.sensor_value}
+                  ></SensorControlCard>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {/* <Box className={centre_class}>
           {this.state.sensorInfo.map(counter => (
             <div>
               <SensorControlCard
@@ -157,7 +173,7 @@ class NavigationBar extends Component {
               &nbsp;&nbsp;&nbsp;
             </div>
           ))}
-        </Box>
+        </Box> */}
       </div>
     );
   }
@@ -195,6 +211,8 @@ class NavigationBar extends Component {
       mainScreenMessage: this.state.mainScreenMessage,
       import_sensorButtonState: this.state.import_sensorButtonState
     });
+
+    this.importSensorData(); //displaying the sensors tooo!
   }
 
   addnewDevice() {
@@ -248,7 +266,7 @@ class NavigationBar extends Component {
       });
     }
     console.log(this.state.sensorInfo);
-    this.state.sensorMessage = "Available sensor data";
+    this.state.sensorMessage = "Sensors";
     this.setState({
       sensorInfo: this.state.sensorInfo,
       sensorMessage: this.state.sensorMessage
