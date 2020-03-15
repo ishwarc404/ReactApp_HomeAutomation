@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Temperature from "./Temperature.png";
-import Motion from "./Motion.png";
+// import Temperature from "./Temperature.png";
+// import Motion from "./Motion.png";
 
 class SensorData extends Component {
   constructor(props) {
