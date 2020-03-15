@@ -12,22 +12,26 @@ import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
 import Badge from "@material-ui/core/Badge";
 import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
-
+import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
 const useStyles = makeStyles({
   root: {
-    width: 350,
-    Height: 250,
+    width: 320,
+    Height: 200,
     opacity: 0.9,
-    borderRadius: 7
+    borderRadius: 10,
+    backgroundColor: "#2e3133",
+    borderStyle: "solid",
+    borderColor: "#2e3133"
+    // backgroundColor: "#eeeeee"
   },
   media: {
     height: 180
   },
   text: {
-    color: "#212121"
+    color: "#FFFFFF"
   },
   off_button: {
-    backgroundColor: red[600]
+    // backgroundColor: red[600]
   },
   on_button: {
     backgroundColor: blue[700]
@@ -68,7 +72,6 @@ export default function MediaCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardMedia className={classes.media} image={bulb} />
       <CardContent>
         <Typography
           className={classes.text}
@@ -76,6 +79,7 @@ export default function MediaCard(props) {
           variant="h5"
           component="h2"
         >
+          <EmojiObjectsIcon style={{ fontSize: 90 }} color="white"  />
           {props.device_name}
         </Typography>
       </CardContent>
@@ -86,12 +90,14 @@ export default function MediaCard(props) {
           className={classes.on_button}
           // id={this.props.device_ID}
           onClick={onButtonClicked}
+          color = "primary"
         >
           <WbIncandescentIcon /> &nbsp; ON
         </Button>
         &nbsp; &nbsp;
         <Button
           variant="contained"
+          color="secondary"
           style={{ fontSize: 20 }}
           className={classes.off_button}
           // id={this.props.device_ID}

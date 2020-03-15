@@ -26,9 +26,10 @@ const useStyles = theme => ({
     justifyContent: "center"
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "transparent",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
+    color: "#FFFFFF"
   },
   getStartedButton: {
     backgroundColor: "#1976d2",
@@ -63,7 +64,7 @@ class TransitionsModal extends Component {
 
     return (
       <div>
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           className={classes.getStartedButton}
@@ -84,49 +85,47 @@ class TransitionsModal extends Component {
             timeout: 500
           }}
         >
-          <Fade in={this.state.open}>
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
-              <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                  Sign in
-                </Typography>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={this.state.userEmailID}
-                  onChange={e => this.setState({ userEmailID: e.target.value })}
-                  autoFocus
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={this.state.userPassword}
-                  onChange={e =>
-                    this.setState({ userPassword: e.target.value })
-                  }
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                {/* <Button
+          <Fade in={this.state.open}> */}
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in to get started
+            </Typography>
+            <TextField
+              variant="filled"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              value={this.state.userEmailID}
+              onChange={e => this.setState({ userEmailID: e.target.value })}
+              autoFocus
+            />
+            <TextField
+              variant="filled"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={this.state.userPassword}
+              onChange={e => this.setState({ userPassword: e.target.value })}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            {/* <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -136,10 +135,10 @@ class TransitionsModal extends Component {
                 >
                   Sign In
                 </Button> */}
-                <Button onClick={this.sendDataToParent}>
-                  <SignInButton> </SignInButton>
-                </Button>
-                {/* <Grid container>
+            <Button onClick={this.sendDataToParent}>
+              <SignInButton> </SignInButton>
+            </Button>
+            {/* <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">
                       Forgot password?
@@ -151,10 +150,10 @@ class TransitionsModal extends Component {
                     </Link>
                   </Grid>
                 </Grid> */}
-              </div>
-            </Container>
-          </Fade>
-        </Modal>
+          </div>
+        </Container>
+        {/* </Fade>
+        </Modal> */}
       </div>
     );
   }

@@ -11,18 +11,23 @@ import SensorControlCard from "./sensor_card";
 import TransitionsModal from "./modal_login";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import LinearLoader from "./linearLoading";
+import Grid from "@material-ui/core/Grid";
 const useStyles = theme => ({
   topBar: {
-    backgroundColor: "#1976d2",
-    fontSize: 20
+    backgroundColor: "#18191b",
+    fontSize: 20,
+    color: "#FFFFFF"
   },
-  buttons: {}
+  buttons: {
+    backgroundColor: "#2e3133"
+  }
 });
 class NavigationBar extends Component {
   state = {
     device_counters: [],
     sensorInfo: [],
-    mainScreenMessage: "SignIn to get started",
+    // mainScreenMessage: "SignIn to get started",
+    mainScreenMessage: "",
     sensorMessage: "",
     userEmailID: "oldemail",
     userPassword: "",
@@ -57,9 +62,7 @@ class NavigationBar extends Component {
       <div>
         <AppBar className={classes.topBar} position="static">
           <Toolbar variant="regular">
-            <Typography variant="title" color="inherit">
-              Home Automation System
-            </Typography>
+            <Typography variant="title">Home Automation System</Typography>
             <Box ml="auto">
               <div>
                 {this.state.import_sensorButtonState.map(counter => (
@@ -67,16 +70,18 @@ class NavigationBar extends Component {
                     variant="contained"
                     onClick={this.importDevices}
                     className={classes.buttons}
+                    color="secondary"
                   >
                     IMPORT DEVICES
                   </Button>
                 ))}
-              &nbsp; &nbsp;
+                &nbsp; &nbsp;
                 {this.state.import_sensorButtonState.map(counter => (
                   <Button
                     variant="contained"
                     onClick={this.importSensorData}
                     className={classes.buttons}
+                    color="secondary"
                   >
                     SENSOR INFORMATION
                   </Button>
@@ -113,16 +118,23 @@ class NavigationBar extends Component {
           ))}
         </div>
 
-        <Box className={devices_class}>
-          {this.state.device_counters.map(counter => (
-            <DevicesConnected
-              key={counter.id}
-              device_name={counter.device_name}
-              device_ID={counter.device_ID}
-              className={devices_class}
-            ></DevicesConnected>
-          ))}
-        </Box>
+        <Grid container>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={2}>
+              {this.state.device_counters.map(counter => (
+                <Grid item>
+                  <DevicesConnected
+                    key={counter.id}
+                    device_name={counter.device_name}
+                    device_ID={counter.device_ID}
+                    className={devices_class}
+                  ></DevicesConnected>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+
         <br />
         <br />
         <h2

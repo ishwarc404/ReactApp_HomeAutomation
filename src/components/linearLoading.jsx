@@ -4,10 +4,11 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "50%",
+    width: "35%",
     "& > * + *": {
       marginTop: theme.spacing(2)
-    }
+    },
+    opacity: 0.6
   }
 }));
 
