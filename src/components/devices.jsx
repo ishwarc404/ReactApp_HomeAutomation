@@ -103,9 +103,12 @@ class MediaCard extends Component {
   onButtonClicked() {
     console.log("Clicked On");
 
-
     //let's ping the flask server from here
-    var targetUrl = "http://52.0.39.202/" + this.props.device_ID + "_" + "on";
+    //global testing
+    // var targetUrl = "http://52.0.39.202/" + this.props.device_ID + "_" + "on";
+
+    //local testting
+    var targetUrl = "http://192.168.0.106:8000/" + this.props.device_ID + "_" + "on";    
     console.log(targetUrl);
     let data_retrtieved;
     fetch(targetUrl).then(response =>
@@ -119,14 +122,14 @@ class MediaCard extends Component {
     this.setState({
       device_status: this.state.device_status
     });
-
   }
 
   offButtonClicked() {
     console.log("Clicked Off");
     //let's ping the flask server from here
 
-    var targetUrl = "http://52.0.39.202/" + this.props.device_ID + "_" + "off";
+    // var targetUrl = "http://52.0.39.202/" + this.props.device_ID + "_" + "off";
+    var targetUrl = "http://192.168.0.106:8000/" + this.props.device_ID + "_" + "off";    
     console.log(targetUrl);
     let data_retrtieved;
     fetch(targetUrl).then(response =>
@@ -139,7 +142,6 @@ class MediaCard extends Component {
     this.setState({
       device_status: this.state.device_status
     });
-
   }
 }
 

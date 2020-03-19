@@ -120,26 +120,25 @@ class NavigationBar extends Component {
               <LinearLoader></LinearLoader>
             ))}
           </div>
-          
-            <Grid container>
-              <Grid item xs={12}>
-                <Grid container justify="center" spacing={2}>
-                  {this.state.device_counters.map(counter => (
-                    <Grid item>
-                      <FadeIn>
+
+          <Grid container>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                {this.state.device_counters.map(counter => (
+                  <Grid item>
+                    <FadeIn>
                       <DevicesConnected
                         key={counter.id}
                         device_name={counter.device_name}
                         device_ID={counter.device_ID}
                         className={devices_class}
                       ></DevicesConnected>
-                       </FadeIn>
-                    </Grid>
-                  ))}
-                </Grid>
+                    </FadeIn>
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
-         
+          </Grid>
 
           <br />
           <br />
@@ -153,24 +152,24 @@ class NavigationBar extends Component {
         >
           {this.state.sensorMessage}
         </h2> */}
-          
-            <Grid container>
-              <Grid item xs={12}>
-                <Grid container justify="center" spacing={2}>
-                  {this.state.sensorInfo.map(counter => (
-                    <Grid item>
-                      <FadeIn>
+
+          <Grid container>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                {this.state.sensorInfo.map(counter => (
+                  <Grid item>
+                    <FadeIn>
                       <SensorControlCard
                         sensor_name={counter.sensor_name}
                         sensor_value={counter.sensor_value}
                       ></SensorControlCard>
-                       </FadeIn>
-                    </Grid>
-                  ))}
-                </Grid>
+                    </FadeIn>
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
-         
+          </Grid>
+
           {/* <Box className={centre_class}>
           {this.state.sensorInfo.map(counter => (
             <div>
@@ -193,7 +192,11 @@ class NavigationBar extends Component {
     // var userPassword = prompt("Enter password:");
 
     var proxy = "https://cors-anywhere.herokuapp.com/";
-    var targetUrl = "https://api.myjson.com/bins/1a5jya";
+    //for global testing
+    // var targetUrl = "https://api.myjson.com/bins/1a5jya";
+
+    //for local testing
+    var targetUrl = "https://api.myjson.com/bins/9asj8";
     let data_retrtieved;
     this.state.device_counters = [];
     console.log("imported");
