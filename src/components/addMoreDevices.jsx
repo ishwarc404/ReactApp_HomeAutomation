@@ -8,6 +8,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import PersonIcon from '@material-ui/icons/Person';
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+
 const useStyles = (theme) => ({
   paper: {
     opacity: 0.99,
@@ -19,7 +22,7 @@ const useStyles = (theme) => ({
   },
 });
 
-class CreateUser extends Component {
+class AddMoreDevices extends Component {
   state = {
     modalOpen: false,
   };
@@ -33,9 +36,9 @@ class CreateUser extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button variant="contained" onClick={this.openDialog} color="primary">
-          Create User
-        </Button>
+        <Fab color="primary" aria-label="add" onClick={this.openDialog}>
+              <AddIcon fontSize="large" />
+            </Fab>
         <Dialog
           className={classes.paper}
           open={this.state.modalOpen}
@@ -97,4 +100,4 @@ class CreateUser extends Component {
   }
 }
 
-export default withStyles(useStyles)(CreateUser);
+export default withStyles(useStyles)(AddMoreDevices);

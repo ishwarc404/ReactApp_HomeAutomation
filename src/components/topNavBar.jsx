@@ -13,7 +13,8 @@ import LinearLoader from "./linearLoading";
 import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
-import CreateUser from "./createUser"
+import CreateUser from "./createUser";
+import AddMoreDevices from "./addMoreDevices"
 const useStyles = (theme) => ({
   topBar: {
     backgroundColor: "#18191b",
@@ -39,6 +40,7 @@ class NavigationBar extends Component {
     CreateUserButtonState: true,
     linearLoadingState: false,
     NavBarButtonState: false,
+    AddMoreDevicesFormStatus: false,
   };
 
   constructor() {
@@ -54,6 +56,7 @@ class NavigationBar extends Component {
   render() {
     let centre_class = "d-flex justify-content-center";
     let devices_class = "d-flex flex-wrap justify-content-around";
+    let bottom_right_class = "d-flex justify-content-end";
     const { classes } = this.props;
 
     const renderNavBarButtons = () => {
@@ -121,6 +124,18 @@ class NavigationBar extends Component {
         );
       }
     };
+
+    const renderAddMoreDevicesForm = () => {
+      console.log("Creating form");
+      if (this.state.AddMoreDevicesFormStatus) {
+        return (
+          <div className={centre_class}>
+            <AddMoreDevices></AddMoreDevices>
+          </div>
+        );
+      }
+    };
+
 
     const renderLinearLoadingAnimation = () => {
       if (this.state.linearLoadingState) {
@@ -199,6 +214,12 @@ class NavigationBar extends Component {
             </Grid>
           </Grid>
         </div>
+        <div class={bottom_right_class}>
+          <br />
+          <br />
+          {renderAddMoreDevicesForm()}
+          &nbsp; &nbsp;
+        </div>
       </FadeIn>
     );
   }
@@ -241,40 +262,41 @@ class NavigationBar extends Component {
 
     this.state.linearLoadingState = false; //removing the linear loader
     this.state.NavBarButtonState = true;
-
+    this.state.AddMoreDevicesFormStatus = true;
     this.setState({
       linearLoadingState: this.state.linearLoadingState,
       deviceInfo: this.state.deviceInfo,
       mainScreenMessage: this.state.mainScreenMessage,
       NavBarButtonState: this.state.NavBarButtonState,
       LogoutButtonState: this.state.LogoutButtonState,
+      AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
     });
 
     this.importSensorData(); //displaying the sensors tooo!
   }
 
   addnewDevice() {
-    var device_name = prompt("Enter device name:");
-    var device_ID = prompt("Enter device code:");
+    // var device_name = prompt("Enter device name:");
+    // var device_ID = prompt("Enter device code:");
 
-    if (device_name === null) {
-      return;
-    }
-    if (device_ID.length === null) {
-      return;
-    }
-    if (device_name.length === 0) {
-      return;
-    }
-    if (device_ID.length === 0) {
-      return;
-    }
-    this.state.deviceInfo.push({
-      device_name: device_name,
-      device_ID: device_ID,
-    }); //these will be used to identify the device
+    // if (device_name === null) {
+    //   return;
+    // }
+    // if (device_ID.length === null) {
+    //   return;
+    // }
+    // if (device_name.length === 0) {
+    //   return;
+    // }
+    // if (device_ID.length === 0) {
+    //   return;
+    // }
+    // this.state.deviceInfo.push({
+    //   device_name: device_name,
+    //   device_ID: device_ID,
+    // }); //these will be used to identify the device
 
-    this.setState({ deviceInfo: this.state.deviceInfo });
+    // this.setState({ deviceInfo: this.state.deviceInfo });
   }
 
   removeDevice() {
