@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.css"; //importing bootstrap
 
 //importing all the components
 import NavigationBar from "./components/topNavBar"; //always use uppercase letters
+// import HomePage from "./components/homePage"; //always use uppercase letters
+
 ReactDOM.render(<App />, document.getElementById("root"));
 setTimeout(() => {
   ReactDOM.render(<NavigationBar />, document.getElementById("root"));

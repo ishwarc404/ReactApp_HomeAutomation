@@ -23,22 +23,17 @@ const useStyles = (theme) => ({
   buttons: {
     backgroundColor: "#2e3133",
   },
-  CreateUserButton:{
-    backgroundColor: "#2e3133",
-    fontSize: 18
-  }
 });
-class NavigationBar extends Component {
+class HomePage extends Component {
   state = {
-    deviceInfo: [],
+    device_counters: [],
     sensorInfo: [],
-    mainScreenMessage: false,
+    mainScreenMessage: "",
     sensorMessage: "",
     userName: null,
-    SignInButtonState: true,
-    CreateUserButtonState: true,
-    linearLoadingState: false,
-    ShowDeviesButtonState: false,
+    SignInButtonState: [1],
+    linearLoading: [],
+    import_sensorButtonState: [],
   };
 
   constructor() {
@@ -53,149 +48,40 @@ class NavigationBar extends Component {
   render() {
     let centre_class = "d-flex justify-content-center";
     let devices_class = "d-flex flex-wrap justify-content-around";
+    let div_class = "d-inline justify-content-center";
+    let badge1_class = "badge m-2 badge-primary ";
+    let badge2_class = "badge m-2 badge-dark ";
+    let addnewdevicebutton_class = "m-8";
+    let importdevicebutton_class = "m-2";
     const { classes } = this.props;
 
-    const renderShowDevicesButton = () => {
-      if (this.state.ShowDeviesButtonState) {
-        return (
-          <div>
-            <Button
-              variant="contained"
-              onClick={this.importDevices}
-              className={classes.buttons}
-              color="secondary"
-            >
-              SHOW DEVICES
-            </Button>
-          </div>
-        );
-      }
-    };
-    const renderMainScreenMessage = () => {
-      if (this.state.mainScreenMessage) {
-        return (
-          <div className={centre_class}>
-            <h2
-              style={{
-                fontSize: 30,
-                color: "#FFFFFF",
-                fontFamily: "Roboto",
-              }}
-            >
-              {this.state.mainScreenMessage}
-            </h2>
-          </div>
-        );
-      }
-    };
-
-    const renderSignInButton = () => {
-      if (this.state.SignInButtonState) {
-        return (
-          <div className={centre_class}>
-            <TransitionsModal
-              parentTrigger={this.parentTrigger} //passing the callback as props
-            ></TransitionsModal>
-          </div>
-        );
-      }
-    };
-
-    const renderCreateUserButton = () => {
-      if (this.state.CreateUserButtonState) {
-        return (
-          <div className={centre_class}>
-            <Button
-              variant="contained"
-              onClick={this.createUserForm}
-              className={classes.CreateUserButton}
-              color="secondary"
-            >
-              Create User
-            </Button>
-          </div>
-        );
-      }
-    };
-
-    const renderLinearLoadingAnimation = () => {
-      if (this.state.linearLoadingState) {
-        return (
-          <div className={centre_class}>
-            <LinearLoader></LinearLoader>
-          </div>
-        );
-      }
-    };
-
+    // let menuButton = {
+    //   marginRight: theme.spacing(20)
+    // };
     return (
       <FadeIn>
         <div>
           <AppBar className={classes.topBar} position="static">
             <Toolbar variant="regular">
               <Typography variant="title">Home Automation System</Typography>
-              <Box ml="auto">{renderShowDevicesButton()}</Box>
             </Toolbar>
           </AppBar>
-
-          <div>
-            <br />
-            <br />
-            {renderMainScreenMessage()}
-          </div>
-          <div>
-            <br />
-            <br />
-            {renderSignInButton()}
-          </div>
-
-          <div>
-            <br />
-            <br />
-            {renderCreateUserButton()}
-          </div>
-
-          <div>{renderLinearLoadingAnimation()}</div>
-
-          <Grid container>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={2}>
-                {this.state.deviceInfo.map((counter) => (
-                  <Grid item>
-                    <FadeIn>
-                      <DevicesConnected
-                        key={counter.id}
-                        device_name={counter.device_name}
-                        device_ID={counter.device_ID}
-                        className={devices_class}
-                      ></DevicesConnected>
-                    </FadeIn>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-
           <br />
           <br />
-
-          <Grid container>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={2}>
-                {this.state.sensorInfo.map((counter) => (
-                  <Grid item>
-                    <FadeIn>
-                      <SensorControlCard
-                        sensor_name={counter.sensor_name}
-                        sensor_value={counter.sensor_value}
-                      ></SensorControlCard>
-                    </FadeIn>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-        </div>
+          <br />
+          <div className={centre_class}>
+            {this.state.SignInButtonState.map((counter) => (
+              <TransitionsModal
+                parentTrigger={this.parentTrigger} //passing the callback as props
+              ></TransitionsModal>
+            ))}
+          </div>
+          <div className={centre_class}>
+            {this.state.linearLoading.map((counter) => (
+              <LinearLoader></LinearLoader>
+            ))}
+          </div>
+          </div>
       </FadeIn>
     );
   }
@@ -222,10 +108,10 @@ class NavigationBar extends Component {
     );
 
     // console.log(data_retrieved);
-    this.state.deviceInfo = [];
+    this.state.device_counters = [];
 
     for (var i = 0; i < data_retrieved["device_name"].length; i++) {
-      this.state.deviceInfo.push({
+      this.state.device_counters.push({
         device_name: data_retrieved.device_name[i],
         device_ID: data_retrieved.device_ID[i],
       });
@@ -236,14 +122,13 @@ class NavigationBar extends Component {
       this.state.mainScreenMessage = "No devices available!";
     }
 
-    this.state.linearLoadingState = false; //removing the linear loader
-    this.state.ShowDeviesButtonState = true;
-
+    this.state.linearLoading = []; //removing the linear loader
+    this.state.import_sensorButtonState = [1];
     this.setState({
-      linearLoadingState: this.state.linearLoadingState,
-      deviceInfo: this.state.deviceInfo,
+      linearLoading: this.state.linearLoading,
+      device_counters: this.state.device_counters,
       mainScreenMessage: this.state.mainScreenMessage,
-      ShowDeviesButtonState: this.state.ShowDeviesButtonState,
+      import_sensorButtonState: this.state.import_sensorButtonState,
     });
 
     this.importSensorData(); //displaying the sensors tooo!
@@ -265,19 +150,19 @@ class NavigationBar extends Component {
     if (device_ID.length === 0) {
       return;
     }
-    this.state.deviceInfo.push({
+    this.state.device_counters.push({
       device_name: device_name,
       device_ID: device_ID,
     }); //these will be used to identify the device
 
-    this.setState({ deviceInfo: this.state.deviceInfo });
+    this.setState({ device_counters: this.state.device_counters });
   }
 
   removeDevice() {
     //maybe when we use this functionality, we remove a specefic device only.
-    this.state.deviceInfo.pop();
-    console.log(this.state.deviceInfo);
-    this.setState({ deviceInfo: this.state.deviceInfo });
+    this.state.device_counters.pop();
+    console.log(this.state.device_counters);
+    this.setState({ device_counters: this.state.device_counters });
   }
 
   async importSensorData() {
@@ -318,17 +203,16 @@ class NavigationBar extends Component {
 
   parentTrigger(userName) {
     this.state.userName = userName;
-    this.state.linearLoadingState = true;
-    this.state.SignInButtonState = false; //empty because we need to remove it.
+    this.state.linearLoading = [1];
+    this.state.SignInButtonState = []; //empty because we need to remove it.
     this.state.mainScreenMessage = "Loading Devices";
-    this.state.CreateUserButtonState = false;
+
     setTimeout(() => {
       this.setState({
         userName: this.state.userName,
-        linearLoadingState: this.state.linearLoadingState,
+        linearLoading: this.state.linearLoading,
         SignInButtonState: this.state.SignInButtonState,
         mainScreenMessage: this.state.mainScreenMessage,
-        CreateUserButtonState: this.state.CreateUserButtonState,
       });
     }, 3500);
 
@@ -338,4 +222,4 @@ class NavigationBar extends Component {
   }
 }
 
-export default withStyles(useStyles)(NavigationBar);
+export default withStyles(useStyles)(HomePage);
