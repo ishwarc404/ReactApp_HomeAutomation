@@ -44,33 +44,19 @@ class AddMoreDevices extends Component {
           open={this.state.modalOpen}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Create a new user <PersonIcon fontSize="large"/> </DialogTitle>
+          <DialogTitle id="form-dialog-title">Add a new device</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Enter your name"
+              id="device_name"
+              label="Device Name"
               style={{width: 550}}
             ></TextField>
             <TextField
               margin="dense"
-              id="username"
-              label="UserId or Email Address"
-              style={{width: 550}}
-            />
-            <TextField          
-              margin="dense"
-              id="password"
-              label="Password"
-              type="password"
-              style={{width: 550}}
-            />
-            <TextField
-              margin="dense"
-              id="password_reenter"
-              label="Re-enter Password"
-              type="password"
+              id="device_id"
+              label="Device Unique Code"
               style={{width: 550}}
             />
           </DialogContent>
@@ -78,7 +64,7 @@ class AddMoreDevices extends Component {
             <Button color="primary" onClick={this.closeDialog}>
               Cancel
             </Button>
-            <Button color="primary">REGISTER</Button>
+            <Button color="primary">REGISTER DEVICE</Button>
           </DialogActions>
         </Dialog>
       </div>

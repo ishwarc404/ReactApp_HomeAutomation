@@ -5,7 +5,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css"; //importing bootstrap
 
-// import axios from 'axios'
+import * as V from 'victory';
+
 
 //importing all the components
 import NavigationBar from "./components/topNavBar"; //always use uppercase letters

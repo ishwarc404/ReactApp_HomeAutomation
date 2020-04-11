@@ -14,10 +14,13 @@ import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
 import CreateUser from "./createUser";
-import AddMoreDevices from "./addMoreDevices"
+import AddMoreDevices from "./addMoreDevices";
+import { VictoryBar } from "victory";
+import Graphs from "./analyticGraphs";
+
 const useStyles = (theme) => ({
   topBar: {
-    backgroundColor: "#18191b",
+    backgroundColor: "transparent",
     fontSize: 20,
     color: "#FFFFFF",
   },
@@ -41,6 +44,7 @@ class NavigationBar extends Component {
     linearLoadingState: false,
     NavBarButtonState: false,
     AddMoreDevicesFormStatus: false,
+    graphState: false,
   };
 
   constructor() {
@@ -51,6 +55,7 @@ class NavigationBar extends Component {
     this.importSensorData = this.importSensorData.bind(this);
     this.parentTrigger = this.parentTrigger.bind(this);
     this.logoutSession = this.logoutSession.bind(this);
+    this.analyticsPage = this.analyticsPage.bind(this);
   }
 
   render() {
@@ -63,6 +68,15 @@ class NavigationBar extends Component {
       if (this.state.NavBarButtonState) {
         return (
           <div>
+            <Button
+              variant="contained"
+              onClick={this.analyticsPage}
+              className={classes.buttons}
+              color="secondary"
+            >
+              ANALYTICS
+            </Button>
+            &nbsp; &nbsp;
             <Button
               variant="contained"
               onClick={this.importDevices}
@@ -136,12 +150,21 @@ class NavigationBar extends Component {
       }
     };
 
-
     const renderLinearLoadingAnimation = () => {
       if (this.state.linearLoadingState) {
         return (
           <div className={centre_class}>
             <LinearLoader></LinearLoader>
+          </div>
+        );
+      }
+    };
+
+    const renderGraphs = () => {
+      if (this.state.graphState) {
+        return (
+          <div className={centre_class}>
+            <Graphs></Graphs>
           </div>
         );
       }
@@ -172,7 +195,9 @@ class NavigationBar extends Component {
             <br />
             {renderCreateUserButton()}
           </div>
-
+          <div>
+            {renderGraphs()}
+          </div>
           <div>{renderLinearLoadingAnimation()}</div>
 
           <Grid container>
@@ -214,12 +239,14 @@ class NavigationBar extends Component {
             </Grid>
           </Grid>
         </div>
-        <div class={bottom_right_class}>
-          <br />
-          <br />
-          {renderAddMoreDevicesForm()}
-          &nbsp; &nbsp;
-        </div>
+        <FadeIn>
+          <div class={bottom_right_class}>
+            <br />
+            <br />
+            {renderAddMoreDevicesForm()}
+            &nbsp; &nbsp;
+          </div>
+        </FadeIn>
       </FadeIn>
     );
   }
@@ -263,6 +290,7 @@ class NavigationBar extends Component {
     this.state.linearLoadingState = false; //removing the linear loader
     this.state.NavBarButtonState = true;
     this.state.AddMoreDevicesFormStatus = true;
+    this.state.graphState = false;
     this.setState({
       linearLoadingState: this.state.linearLoadingState,
       deviceInfo: this.state.deviceInfo,
@@ -270,7 +298,9 @@ class NavigationBar extends Component {
       NavBarButtonState: this.state.NavBarButtonState,
       LogoutButtonState: this.state.LogoutButtonState,
       AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
+      graphState: this.state.graphState,
     });
+
 
     this.importSensorData(); //displaying the sensors tooo!
   }
@@ -278,7 +308,6 @@ class NavigationBar extends Component {
   addnewDevice() {
     // var device_name = prompt("Enter device name:");
     // var device_ID = prompt("Enter device code:");
-
     // if (device_name === null) {
     //   return;
     // }
@@ -295,7 +324,6 @@ class NavigationBar extends Component {
     //   device_name: device_name,
     //   device_ID: device_ID,
     // }); //these will be used to identify the device
-
     // this.setState({ deviceInfo: this.state.deviceInfo });
   }
 
@@ -336,23 +364,25 @@ class NavigationBar extends Component {
     }
     console.log(this.state.sensorInfo);
     this.state.sensorMessage = "Sensors";
+    
     this.setState({
       sensorInfo: this.state.sensorInfo,
       sensorMessage: this.state.sensorMessage,
     });
   }
 
-  logoutSession() {
+  analyticsPage() {
     this.state.deviceInfo = [];
     this.state.sensorInfo = [];
     this.state.mainScreenMessage = false;
     this.state.sensorMessage = "";
-    this.state.userName = null;
-    this.state.SignInButtonState = true;
-    this.state.CreateUserButtonState = true;
+    this.state.SignInButtonState = false;
+    this.state.CreateUserButtonState = false;
     this.state.linearLoadingState = false;
-    this.state.NavBarButtonState = false;
+    this.state.NavBarButtonState = true;
     this.state.LogoutButtonState = false;
+    this.state.AddMoreDevicesFormStatus = false;
+    this.state.graphState = true;
     this.setState({
       deviceInfo: this.state.deviceInfo,
       sensorInfo: this.state.sensorInfo,
@@ -364,6 +394,36 @@ class NavigationBar extends Component {
       linearLoadingState: this.state.linearLoadingState,
       NavBarButtonState: this.state.NavBarButtonState,
       LogoutButtonState: this.state.LogoutButtonState,
+      AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
+      graphState: this.state.graphState,
+    });
+  }
+  logoutSession() {
+    this.state.deviceInfo = [];
+    this.state.sensorInfo = [];
+    this.state.mainScreenMessage = false;
+    this.state.sensorMessage = "";
+    this.state.userName = null;
+    this.state.SignInButtonState = true;
+    this.state.CreateUserButtonState = true;
+    this.state.linearLoadingState = false;
+    this.state.NavBarButtonState = false;
+    this.state.LogoutButtonState = false;
+    this.state.graphState = false;
+    this.state.AddMoreDevicesFormStatus = false;
+    this.setState({
+      deviceInfo: this.state.deviceInfo,
+      sensorInfo: this.state.sensorInfo,
+      mainScreenMessage: this.state.mainScreenMessage,
+      sensorMessage: this.state.sensorMessage,
+      userName: this.state.userName,
+      SignInButtonState: this.state.SignInButtonState,
+      CreateUserButtonState: this.state.CreateUserButtonState,
+      linearLoadingState: this.state.linearLoadingState,
+      NavBarButtonState: this.state.NavBarButtonState,
+      LogoutButtonState: this.state.LogoutButtonState,
+      AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
+      graphState: this.state.graphState,
     });
   }
   parentTrigger(userName) {

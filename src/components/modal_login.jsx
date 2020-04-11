@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Container from "@material-ui/core/Container";
 import SignInButton from "./signinButton";
 import apiService from "../services/apiServices";
+import FadeIn from "react-fade-in";
 const useStyles = (theme) => ({
   modal: {
     display: "flex",
@@ -22,10 +23,10 @@ const useStyles = (theme) => ({
   paper: {
     opacity: 0.98,
     borderRadius: 10,
-    backgroundColor: "#2e3133",
+    backgroundColor: "#FFFFFF",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    color: "#FFFFFF",
+    color: "#2e3133",
   },
   getStartedButton: {
     backgroundColor: "#1976d2",
@@ -60,7 +61,7 @@ class TransitionsModal extends Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <FadeIn>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -121,7 +122,7 @@ class TransitionsModal extends Component {
         </Container>
         {/* </Fade>
         </Modal> */}
-      </div>
+      </FadeIn>
     );
   }
 
