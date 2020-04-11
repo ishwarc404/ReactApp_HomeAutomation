@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import SignInButton from "./signinButton";
 import apiService from "../services/apiServices";
 import FadeIn from "react-fade-in";
+
 const useStyles = (theme) => ({
   modal: {
     display: "flex",

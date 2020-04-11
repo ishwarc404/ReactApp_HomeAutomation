@@ -14,11 +14,27 @@ import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
 // import CreateUser from "./createUser";
+
 import AddMoreDevices from "./addMoreDevices";
 import { VictoryBar } from "victory";
 import Graphs from "./analyticGraphs";
 import CreateUserForm from "./createUserForm";
 import HomeTitle from "./homeTitle";
+import SignIn from "./signInForm"
+
+import Lottie from "react-lottie";
+import ReactLoading from "react-loading";
+import * as registerLoading from "../registeredloading.json";
+
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  animationData: registerLoading.default,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+
 const useStyles = (theme) => ({
   topBar: {
     backgroundColor: "transparent",
@@ -45,7 +61,7 @@ class NavigationBar extends Component {
     mainScreenMessage: false,
     sensorMessage: "",
     userName: null,
-    SignInButtonState: true,
+   
     createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
@@ -53,6 +69,8 @@ class NavigationBar extends Component {
     graphState: false,
     topNavBarState: false,
     frontPageState: true,
+    registeredloadingState: false,
+    SignInState: false,
   };
 
   constructor() {
@@ -64,7 +82,11 @@ class NavigationBar extends Component {
     this.parentTrigger = this.parentTrigger.bind(this);
     this.logoutSession = this.logoutSession.bind(this);
     this.analyticsPage = this.analyticsPage.bind(this);
+
     this.createUserPage = this.createUserPage.bind(this);
+    this.signInPage = this.signInPage.bind(this);
+    this.backToHome = this.backToHome.bind(this);
+    this.registerUser = this.registerUser.bind(this);
   }
 
   render() {
@@ -137,7 +159,7 @@ class NavigationBar extends Component {
                 PRODUCTS
               </Button>{" "}
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button className={classes.mainNavButtons} variant="contained">
+              <Button className={classes.mainNavButtons} variant="contained" onClick={this.signInPage}>
                 SIGN IN
               </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -208,7 +230,40 @@ class NavigationBar extends Component {
       if (this.state.createUserPageState) {
         return (
           <div className={centre_class}>
-            <CreateUserForm></CreateUserForm>
+            <CreateUserForm
+              backToHome={this.backToHome}
+              registerUser={this.registerUser}
+            ></CreateUserForm>
+          </div>
+        );
+      }
+    };
+
+    const renderSignInForm = () => {
+      if (this.state.SignInState) {
+        return (
+          <div className={centre_class}>
+          <SignIn backToHome={this.backToHome} parentTrigger={this.parentTrigger}></SignIn>
+          </div>
+        );
+      }
+    };
+
+
+    const renderRegisteredLoading = () => {
+      if (this.state.registeredloadingState) {
+        return (
+          <div className={centre_class}>
+            <FadeIn>
+            <br />
+            <br />
+            <br />
+            <br />
+              <Lottie options={defaultOptions} height={340} width={340} />
+              <Typography variant="h2" component="h2" gutterBottom>
+                User created!
+              </Typography>
+            </FadeIn>
           </div>
         );
       }
@@ -222,11 +277,9 @@ class NavigationBar extends Component {
             <br />
             {renderFrontPage()}
           </div>
-          <div>
-            <br />
-            <br />
-            {renderCreateUserForm()}
-          </div>
+          <div>{renderSignInForm()}</div>
+          <div>{renderRegisteredLoading()}</div>
+          <div>{renderCreateUserForm()}</div>
           <div>{renderGraphs()}</div>
           <div>{renderLinearLoadingAnimation()}</div>
 
@@ -405,10 +458,17 @@ class NavigationBar extends Component {
     this.state.createUserPageState = true;
     this.setState({
       frontPageState: this.state.frontPageState,
-      createUserPageState: this.state.createUserPageState
+      createUserPageState: this.state.createUserPageState,
     });
+  }
 
-
+  signInPage(){
+    this.state.frontPageState = false;
+    this.state.SignInState = true;
+    this.setState({
+      frontPageState: this.state.frontPageState,
+      SignInState: this.state.SignInState,
+    });
   }
 
   analyticsPage() {
@@ -468,6 +528,8 @@ class NavigationBar extends Component {
   }
   parentTrigger(userName) {
     this.state.userName = userName;
+    this.state.frontPageState = false;
+    this.state.SignInState = false;
     this.state.linearLoadingState = true;
     this.state.SignInButtonState = false; //empty because we need to remove it.
     this.state.mainScreenMessage = "Loading Devices";
@@ -478,10 +540,41 @@ class NavigationBar extends Component {
       SignInButtonState: this.state.SignInButtonState,
       mainScreenMessage: this.state.mainScreenMessage,
       createUserPageState: this.state.createUserPageState,
+      frontPageState: this.state.frontPageState,
+      SignInState:this.state.SignInState
     });
 
     setTimeout(() => {
       this.importDevices();
+    }, 2000);
+  }
+
+  backToHome() {
+    this.state.SignInState = false;
+    this.state.frontPageState = true;
+    this.state.createUserPageState = false;
+    this.setState({
+      frontPageState: this.state.frontPageState,
+      createUserPageState: this.state.createUserPageState,
+      SignInState: this.state.SignInState,
+    });
+  }
+
+
+  registerUser() {
+    this.state.registeredloadingState = true;
+    this.state.createUserPageState = false;
+    this.setState({
+      registeredloadingState: this.state.registeredloadingState,
+      createUserPageState: this.state.createUserPageState,
+    });
+    setTimeout(() => {
+      this.state.frontPageState = true;
+      this.state.registeredloadingState = false;
+      this.setState({
+        registeredloadingState: this.state.registeredloadingState,
+        frontPageState: this.state.frontPageState,
+      });
     }, 2000);
   }
 }

@@ -47,7 +47,9 @@ class HomeTitle extends Component {
               </Typography>
             </div>
             <div>
+                <FadeIn>
               <Lottie options={defaultOptions} height={340} width={340} />
+              </FadeIn>
             </div>
           </div>
         </div>

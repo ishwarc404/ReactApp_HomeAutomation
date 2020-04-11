@@ -17,7 +17,7 @@ export default function LinearLoader() {
 
   return (
     <div className={classes.root}>
-      <LinearProgress color="secondary" />
+      <LinearProgress color="default" />
     </div>
   );
 }
