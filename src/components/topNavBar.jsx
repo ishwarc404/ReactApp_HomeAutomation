@@ -13,11 +13,12 @@ import LinearLoader from "./linearLoading";
 import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
-import CreateUser from "./createUser";
+// import CreateUser from "./createUser";
 import AddMoreDevices from "./addMoreDevices";
 import { VictoryBar } from "victory";
 import Graphs from "./analyticGraphs";
-
+import CreateUserForm from "./createUserForm";
+import HomeTitle from "./homeTitle";
 const useStyles = (theme) => ({
   topBar: {
     backgroundColor: "transparent",
@@ -31,6 +32,11 @@ const useStyles = (theme) => ({
     backgroundColor: "#2e3133",
     fontSize: 18,
   },
+  mainNavButtons: {
+    backgroundColor: "#2e3133",
+    fontSize: 18,
+    color: "#FFFFFF",
+  },
 });
 class NavigationBar extends Component {
   state = {
@@ -40,11 +46,13 @@ class NavigationBar extends Component {
     sensorMessage: "",
     userName: null,
     SignInButtonState: true,
-    CreateUserButtonState: true,
+    createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
     AddMoreDevicesFormStatus: false,
     graphState: false,
+    topNavBarState: false,
+    frontPageState: true,
   };
 
   constructor() {
@@ -56,6 +64,7 @@ class NavigationBar extends Component {
     this.parentTrigger = this.parentTrigger.bind(this);
     this.logoutSession = this.logoutSession.bind(this);
     this.analyticsPage = this.analyticsPage.bind(this);
+    this.createUserPage = this.createUserPage.bind(this);
   }
 
   render() {
@@ -117,30 +126,35 @@ class NavigationBar extends Component {
       }
     };
 
-    const renderSignInButton = () => {
-      if (this.state.SignInButtonState) {
+    const renderFrontPage = () => {
+      if (this.state.frontPageState) {
         return (
-          <div className={centre_class}>
-            <TransitionsModal
-              parentTrigger={this.parentTrigger} //passing the callback as props
-            ></TransitionsModal>
-          </div>
-        );
-      }
-    };
-
-    const renderCreateUserButton = () => {
-      if (this.state.CreateUserButtonState) {
-        return (
-          <div className={centre_class}>
-            <CreateUser></CreateUser>
+          <div>
+            <HomeTitle></HomeTitle>
+            <br /> <br /> <br />
+            <div class="d-flex justify-content-center">
+              <Button className={classes.mainNavButtons} variant="contained">
+                PRODUCTS
+              </Button>{" "}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button className={classes.mainNavButtons} variant="contained">
+                SIGN IN
+              </Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button
+                className={classes.mainNavButtons}
+                onClick={this.createUserPage}
+                variant="default"
+              >
+                CREATE USER
+              </Button>
+            </div>
           </div>
         );
       }
     };
 
     const renderAddMoreDevicesForm = () => {
-      console.log("Creating form");
       if (this.state.AddMoreDevicesFormStatus) {
         return (
           <div className={centre_class}>
@@ -170,34 +184,50 @@ class NavigationBar extends Component {
       }
     };
 
+    const topNavBar = () => {
+      if (this.state.topNavBarState) {
+        return (
+          <div>
+            <AppBar className={classes.topBar} position="static">
+              <Toolbar variant="regular">
+                <Typography variant="title">Home Automation System</Typography>
+                <Box ml="auto">{renderNavBarButtons()}</Box>
+              </Toolbar>
+            </AppBar>
+            <div>
+              <br />
+              <br />
+              {renderMainScreenMessage()}
+            </div>
+          </div>
+        );
+      }
+    };
+
+    const renderCreateUserForm = () => {
+      if (this.state.createUserPageState) {
+        return (
+          <div className={centre_class}>
+            <CreateUserForm></CreateUserForm>
+          </div>
+        );
+      }
+    };
+
     return (
       <FadeIn>
         <div>
-          <AppBar className={classes.topBar} position="static">
-            <Toolbar variant="regular">
-              <Typography variant="title">Home Automation System</Typography>
-              <Box ml="auto">{renderNavBarButtons()}</Box>
-            </Toolbar>
-          </AppBar>
           <div>
             <br />
             <br />
-            {renderMainScreenMessage()}
+            {renderFrontPage()}
           </div>
           <div>
             <br />
             <br />
-            {renderSignInButton()}
+            {renderCreateUserForm()}
           </div>
-
-          <div>
-            <br />
-            <br />
-            {renderCreateUserButton()}
-          </div>
-          <div>
-            {renderGraphs()}
-          </div>
+          <div>{renderGraphs()}</div>
           <div>{renderLinearLoadingAnimation()}</div>
 
           <Grid container>
@@ -301,7 +331,6 @@ class NavigationBar extends Component {
       graphState: this.state.graphState,
     });
 
-
     this.importSensorData(); //displaying the sensors tooo!
   }
 
@@ -364,11 +393,22 @@ class NavigationBar extends Component {
     }
     console.log(this.state.sensorInfo);
     this.state.sensorMessage = "Sensors";
-    
+
     this.setState({
       sensorInfo: this.state.sensorInfo,
       sensorMessage: this.state.sensorMessage,
     });
+  }
+
+  createUserPage() {
+    this.state.frontPageState = false;
+    this.state.createUserPageState = true;
+    this.setState({
+      frontPageState: this.state.frontPageState,
+      createUserPageState: this.state.createUserPageState
+    });
+
+
   }
 
   analyticsPage() {
@@ -377,7 +417,7 @@ class NavigationBar extends Component {
     this.state.mainScreenMessage = false;
     this.state.sensorMessage = "";
     this.state.SignInButtonState = false;
-    this.state.CreateUserButtonState = false;
+    this.state.createUserPageState = false;
     this.state.linearLoadingState = false;
     this.state.NavBarButtonState = true;
     this.state.LogoutButtonState = false;
@@ -390,7 +430,7 @@ class NavigationBar extends Component {
       sensorMessage: this.state.sensorMessage,
       userName: this.state.userName,
       SignInButtonState: this.state.SignInButtonState,
-      CreateUserButtonState: this.state.CreateUserButtonState,
+      createUserPageState: this.state.createUserPageState,
       linearLoadingState: this.state.linearLoadingState,
       NavBarButtonState: this.state.NavBarButtonState,
       LogoutButtonState: this.state.LogoutButtonState,
@@ -405,7 +445,7 @@ class NavigationBar extends Component {
     this.state.sensorMessage = "";
     this.state.userName = null;
     this.state.SignInButtonState = true;
-    this.state.CreateUserButtonState = true;
+    this.state.createUserPageState = true;
     this.state.linearLoadingState = false;
     this.state.NavBarButtonState = false;
     this.state.LogoutButtonState = false;
@@ -418,7 +458,7 @@ class NavigationBar extends Component {
       sensorMessage: this.state.sensorMessage,
       userName: this.state.userName,
       SignInButtonState: this.state.SignInButtonState,
-      CreateUserButtonState: this.state.CreateUserButtonState,
+      createUserPageState: this.state.createUserPageState,
       linearLoadingState: this.state.linearLoadingState,
       NavBarButtonState: this.state.NavBarButtonState,
       LogoutButtonState: this.state.LogoutButtonState,
@@ -431,13 +471,13 @@ class NavigationBar extends Component {
     this.state.linearLoadingState = true;
     this.state.SignInButtonState = false; //empty because we need to remove it.
     this.state.mainScreenMessage = "Loading Devices";
-    this.state.CreateUserButtonState = false;
+    this.state.createUserPageState = false;
     this.setState({
       userName: this.state.userName,
       linearLoadingState: this.state.linearLoadingState,
       SignInButtonState: this.state.SignInButtonState,
       mainScreenMessage: this.state.mainScreenMessage,
-      CreateUserButtonState: this.state.CreateUserButtonState,
+      createUserPageState: this.state.createUserPageState,
     });
 
     setTimeout(() => {

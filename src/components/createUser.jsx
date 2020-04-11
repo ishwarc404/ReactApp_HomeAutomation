@@ -17,6 +17,11 @@ const useStyles = (theme) => ({
     padding: theme.spacing(2, 4, 3),
     color: "#FFFFFF",
   },
+    mainNavButtons: {
+    backgroundColor: "#2e3133",
+    fontSize: 18,
+    color: "#FFFFFF",
+  },
 });
 
 class CreateUser extends Component {
@@ -33,9 +38,9 @@ class CreateUser extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button variant="contained" onClick={this.openDialog} color="primary">
-          Create User
-        </Button>
+              <Button className={classes.mainNavButtons} onClick={this.openDialog} variant="default">
+                CREATE USER
+              </Button>
         <Dialog
           className={classes.paper}
           open={this.state.modalOpen}
