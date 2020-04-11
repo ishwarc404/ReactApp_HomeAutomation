@@ -20,8 +20,8 @@ import { VictoryBar } from "victory";
 import Graphs from "./analyticGraphs";
 import CreateUserForm from "./createUserForm";
 import HomeTitle from "./homeTitle";
-import SignIn from "./signInForm"
-
+import SignIn from "./signInForm";
+import Menu from "./toggleMenu"
 import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import * as registerLoading from "../registeredloading.json";
@@ -61,7 +61,7 @@ class NavigationBar extends Component {
     mainScreenMessage: false,
     sensorMessage: "",
     userName: null,
-   
+
     createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
@@ -98,51 +98,30 @@ class NavigationBar extends Component {
     const renderNavBarButtons = () => {
       if (this.state.NavBarButtonState) {
         return (
-          <div>
+          <div >
+            <div class="d-flex justify-content-center">
             <Button
-              variant="contained"
+              variant="default"
               onClick={this.analyticsPage}
-              className={classes.buttons}
-              color="secondary"
             >
               ANALYTICS
             </Button>
             &nbsp; &nbsp;
             <Button
-              variant="contained"
+              variant="default"
               onClick={this.importDevices}
-              className={classes.buttons}
-              color="secondary"
             >
               SHOW DEVICES
             </Button>
             &nbsp; &nbsp;
             <Button
-              variant="contained"
+              variant="default"
               onClick={this.logoutSession}
-              className={classes.buttons}
-              color="secondary"
             >
               LOG OUT
             </Button>
           </div>
-        );
-      }
-    };
-
-    const renderMainScreenMessage = () => {
-      if (this.state.mainScreenMessage) {
-        return (
-          <div className={centre_class}>
-            <h2
-              style={{
-                fontSize: 30,
-                color: "#FFFFFF",
-                fontFamily: "Roboto",
-              }}
-            >
-              {this.state.mainScreenMessage}
-            </h2>
+          <br/>
           </div>
         );
       }
@@ -159,7 +138,11 @@ class NavigationBar extends Component {
                 PRODUCTS
               </Button>{" "}
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button className={classes.mainNavButtons} variant="contained" onClick={this.signInPage}>
+              <Button
+                className={classes.mainNavButtons}
+                variant="contained"
+                onClick={this.signInPage}
+              >
                 SIGN IN
               </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -216,11 +199,6 @@ class NavigationBar extends Component {
                 <Box ml="auto">{renderNavBarButtons()}</Box>
               </Toolbar>
             </AppBar>
-            <div>
-              <br />
-              <br />
-              {renderMainScreenMessage()}
-            </div>
           </div>
         );
       }
@@ -243,22 +221,37 @@ class NavigationBar extends Component {
       if (this.state.SignInState) {
         return (
           <div className={centre_class}>
-          <SignIn backToHome={this.backToHome} parentTrigger={this.parentTrigger}></SignIn>
+            <SignIn
+              backToHome={this.backToHome}
+              parentTrigger={this.parentTrigger}
+            ></SignIn>
           </div>
         );
       }
     };
-
+    const renderMainScreenMessage = () => {
+      if (this.state.mainScreenMessage) {
+        return (
+          <div>
+            <div className={centre_class}>
+              <Typography variant="h2" component="h2" gutterBottom>
+                Your devices
+              </Typography>
+            </div>
+          </div>
+        );
+      }
+    };
 
     const renderRegisteredLoading = () => {
       if (this.state.registeredloadingState) {
         return (
           <div className={centre_class}>
             <FadeIn>
-            <br />
-            <br />
-            <br />
-            <br />
+              <br />
+              <br />
+              <br />
+              <br />
               <Lottie options={defaultOptions} height={340} width={340} />
               <Typography variant="h2" component="h2" gutterBottom>
                 User created!
@@ -277,12 +270,15 @@ class NavigationBar extends Component {
             <br />
             {renderFrontPage()}
           </div>
+          <div>{renderNavBarButtons()}</div>
           <div>{renderSignInForm()}</div>
           <div>{renderRegisteredLoading()}</div>
           <div>{renderCreateUserForm()}</div>
           <div>{renderGraphs()}</div>
           <div>{renderLinearLoadingAnimation()}</div>
-
+          <div>{renderMainScreenMessage()}</div>
+          <br />
+          <br />
           <Grid container>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={2}>
@@ -374,6 +370,7 @@ class NavigationBar extends Component {
     this.state.NavBarButtonState = true;
     this.state.AddMoreDevicesFormStatus = true;
     this.state.graphState = false;
+    this.state.mainScreenMessage = true;
     this.setState({
       linearLoadingState: this.state.linearLoadingState,
       deviceInfo: this.state.deviceInfo,
@@ -462,7 +459,7 @@ class NavigationBar extends Component {
     });
   }
 
-  signInPage(){
+  signInPage() {
     this.state.frontPageState = false;
     this.state.SignInState = true;
     this.setState({
@@ -504,26 +501,25 @@ class NavigationBar extends Component {
     this.state.mainScreenMessage = false;
     this.state.sensorMessage = "";
     this.state.userName = null;
-    this.state.SignInButtonState = true;
-    this.state.createUserPageState = true;
+    this.state.createUserPageState = false;
     this.state.linearLoadingState = false;
     this.state.NavBarButtonState = false;
-    this.state.LogoutButtonState = false;
     this.state.graphState = false;
     this.state.AddMoreDevicesFormStatus = false;
+    this.state.frontPageState = true;
     this.setState({
       deviceInfo: this.state.deviceInfo,
       sensorInfo: this.state.sensorInfo,
       mainScreenMessage: this.state.mainScreenMessage,
       sensorMessage: this.state.sensorMessage,
       userName: this.state.userName,
-      SignInButtonState: this.state.SignInButtonState,
       createUserPageState: this.state.createUserPageState,
       linearLoadingState: this.state.linearLoadingState,
       NavBarButtonState: this.state.NavBarButtonState,
       LogoutButtonState: this.state.LogoutButtonState,
       AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
       graphState: this.state.graphState,
+      frontPageState: this.state.frontPageState,
     });
   }
   parentTrigger(userName) {
@@ -541,7 +537,7 @@ class NavigationBar extends Component {
       mainScreenMessage: this.state.mainScreenMessage,
       createUserPageState: this.state.createUserPageState,
       frontPageState: this.state.frontPageState,
-      SignInState:this.state.SignInState
+      SignInState: this.state.SignInState,
     });
 
     setTimeout(() => {
@@ -559,7 +555,6 @@ class NavigationBar extends Component {
       SignInState: this.state.SignInState,
     });
   }
-
 
   registerUser() {
     this.state.registeredloadingState = true;

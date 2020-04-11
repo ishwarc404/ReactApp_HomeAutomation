@@ -1,5 +1,5 @@
 import React, { useState, Component } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles, rgbToHex } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 
@@ -46,6 +46,15 @@ const useStyles = (theme) => ({
     fontSize: 25,
     color: "#FFFFFF",
   },
+  signInButton: {
+    backgroundColor: "#2e3133",
+    fontSize: 25,
+    color: "#FFFFFF",
+    width: "550px"
+  },
+  inputclass: {
+    width: "550px",
+  },
 });
 
 class SignIn extends Component {
@@ -86,7 +95,7 @@ class SignIn extends Component {
           variant="outlined"
           margin="normal"
           required
-          fullWidth
+          className={classes.inputclass}
           id="email"
           autoComplete="email"
           value={this.state.userName}
@@ -98,7 +107,6 @@ class SignIn extends Component {
           }
         />
         <br />
-        <br />
         <Typography component="h3" variant="h3">
           Password
         </Typography>
@@ -106,7 +114,7 @@ class SignIn extends Component {
           variant="outlined"
           margin="normal"
           required
-          fullWidth
+          className={classes.inputclass}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -123,10 +131,9 @@ class SignIn extends Component {
         />
         <Button
           type="submit"
-          fullWidth
           variant="default"
           color="primary"
-          className={classes.mainNavButtons}
+          className={classes.signInButton}
           onClick={this.sendDataToParent}
         >
           Sign In

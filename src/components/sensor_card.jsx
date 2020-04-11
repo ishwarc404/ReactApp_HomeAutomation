@@ -16,11 +16,9 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 250,
     minWidth: 150,
     Height: 150,
-    opacity: 0.9,
-    borderRadius: 10,
-    backgroundColor: "#2e3133",
-    borderStyle: "solid",
-    borderColor: "#2e3133"
+    opacity: 1,
+    borderRadius: 9,
+    backgroundColor: "#212121",
   },
   details: {
     display: "flex",

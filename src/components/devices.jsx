@@ -19,11 +19,8 @@ const useStyles = theme => ({
     width: 320,
     Height: 200,
     opacity: 1.0,
-    borderRadius: 10,
-    backgroundColor: "#2e3133",
-    borderStyle: "solid",
-    borderColor: "#2e3133"
-    // backgroundColor: "#eeeeee"
+    borderRadius: 9,
+    backgroundColor: "#212121",
   },
   media: {
     height: 180
