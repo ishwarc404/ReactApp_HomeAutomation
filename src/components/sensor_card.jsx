@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     Height: 150,
     opacity: 1,
     borderRadius: 9,
-    backgroundColor: "#2E3133",
+    backgroundColor: "#212121",
   },
   details: {
     display: "flex",
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     width: 151
   },
   text: {
-    color: "#FFFFFF"
+    color: "#ffffff"
   }
 }));
 
@@ -41,7 +41,7 @@ export default function SensorControlCard(props) {
 
   console.log(props.sensor_name);
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} variant="outlined">
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5" className={classes.text}>
@@ -56,13 +56,6 @@ export default function SensorControlCard(props) {
           </Typography>
         </CardContent>
       </div>
-      {/* <CardMedia>
-        <img
-          src={require("./assets/images/" + props.sensor_name + ".png")}
-          alt=""
-          style={{ height: 80 }}
-        />
-      </CardMedia> */}
     </Card>
   );
 }

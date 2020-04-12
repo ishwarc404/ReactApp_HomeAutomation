@@ -22,13 +22,13 @@ const useStyles = theme => ({
     Height: 200,
     opacity: 1.0,
     borderRadius: 9,
-    backgroundColor: "#2e3133",
+    backgroundColor: "#212121",
   },
   media: {
     height: 180
   },
   text: {
-    color: "#FFFFFF"
+    color: "#ffffff"
   },
   off_button: {
     // backgroundColor: red[600]
@@ -58,8 +58,7 @@ class MediaCard extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Box boxShadow={2} className={classes.root}>
-      <Card className={classes.root}>
+      <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography
             className={classes.text}
@@ -75,7 +74,7 @@ class MediaCard extends Component {
         </CardContent>
         <CardActions>
           <Button
-            variant="contained"
+            variant="outlined"
             style={{ fontSize: 20 }}
             className={classes.on_button}
             // id={this.this.props.device_ID}
@@ -97,7 +96,6 @@ class MediaCard extends Component {
           </Button>
         </CardActions>
       </Card>
-      </Box>
     );
   }
 

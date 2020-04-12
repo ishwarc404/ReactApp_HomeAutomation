@@ -102,7 +102,7 @@ class Graphs extends Component {
     const { classes } = this.props;
     return (
       <FadeIn>
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
           <div>
             <br />
             <br /> <br />
@@ -147,7 +147,8 @@ class Graphs extends Component {
             </VictoryChart>
           </div>
         </div>
-        <div class="d-flex">
+        <hr></hr>
+        <div class="d-flex  justify-content-center">
           <div>
           <br />
             <br /> <br />
@@ -182,6 +183,41 @@ class Graphs extends Component {
                 ]}
               />
             </VictoryChart>
+          </div>
+        </div>
+        <hr></hr>
+        <div class="d-flex">
+          <div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <Typography component="h1" variant="h1">
+              Estimated
+            </Typography>
+            <Typography component="h1" variant="h1">
+              Usage Bill
+            </Typography>
+          </div>
+          &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp;
+          <div>
+          <br />
+          <br />
+            <br />
+            <br />
+            <br />
+          <br />
+            <br />
+            <br />
+            <Typography component="h1" variant="h1">
+             Rs.2336
+            </Typography>
           </div>
         </div>
       </FadeIn>
