@@ -13,14 +13,16 @@ import blue from "@material-ui/core/colors/blue";
 import Badge from "@material-ui/core/Badge";
 import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
 import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
-
+import { shadows } from '@material-ui/system';
+import Box from "@material-ui/core/Box";
+import OfflineBoltIcon from '@material-ui/icons/OfflineBoltTwoTone';
 const useStyles = theme => ({
   root: {
     width: 320,
     Height: 200,
     opacity: 1.0,
     borderRadius: 9,
-    backgroundColor: "#212121",
+    backgroundColor: "#2e3133",
   },
   media: {
     height: 180
@@ -32,7 +34,7 @@ const useStyles = theme => ({
     // backgroundColor: red[600]
   },
   on_button: {
-    backgroundColor: blue[700]
+    backgroundColor: "#7ed312"
   },
   device_status: {
     color: "white"
@@ -45,7 +47,7 @@ class MediaCard extends Component {
   // const [device_status, setStatus] = useState("white");
 
   state = {
-    device_status: "white"
+    device_status: "#dbdbdb"
   };
   constructor(props) {
     super();
@@ -56,17 +58,18 @@ class MediaCard extends Component {
   render() {
     const { classes } = this.props;
     return (
+      <Box boxShadow={2} className={classes.root}>
       <Card className={classes.root}>
         <CardContent>
           <Typography
             className={classes.text}
             gutterBottom
             variant="h5"
-            component="h2"
+            component="h1"
           >
-            <EmojiObjectsIcon
-              style={{ fontSize: 90, fill: this.state.device_status }}
-            />
+            <OfflineBoltIcon
+              style={{ fontSize: 80, fill: this.state.device_status }}
+            /> &nbsp;
             {this.props.device_name}
           </Typography>
         </CardContent>
@@ -77,14 +80,14 @@ class MediaCard extends Component {
             className={classes.on_button}
             // id={this.this.props.device_ID}
             onClick={this.onButtonClicked}
-            color="primary"
+            color="default"
           >
             <WbIncandescentIcon /> &nbsp; ON
           </Button>
           &nbsp; &nbsp;
           <Button
             variant="contained"
-            color="secondary"
+            color="default"
             style={{ fontSize: 20 }}
             className={classes.off_button}
             // id={this.this.props.device_ID}
@@ -94,6 +97,7 @@ class MediaCard extends Component {
           </Button>
         </CardActions>
       </Card>
+      </Box>
     );
   }
 
@@ -116,7 +120,7 @@ class MediaCard extends Component {
     //we use await or else it will be an async call
     console.log(data_retrtieved);
 
-    this.state.device_status = "yellow";
+    this.state.device_status = "#ffd31d";
     this.setState({
       device_status: this.state.device_status
     });
@@ -137,7 +141,7 @@ class MediaCard extends Component {
 
     //we use await or else it will be an async call
     console.log(data_retrtieved);
-    this.state.device_status = "white";
+    this.state.device_status = "#dbdbdb";
     this.setState({
       device_status: this.state.device_status
     });

@@ -19,6 +19,7 @@ import {
   VictoryAxis,
   VictoryTheme,
   VictoryStack,
+  VictoryLine,
   VictoryZoomContainer,
 } from "victory";
 import FadeIn from "react-fade-in";
@@ -49,32 +50,44 @@ const useStyles = (theme) => ({
   },
 });
 
-const data2012 = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
+const device1 = [
+  { day: 1, usage: 5 },
+  { day: 2, usage: 5 },
+  { day: 3, usage: 31 },
+  { day: 4, usage: 14 },
+  { day: 5, usage: 32 },
+  { day: 6, usage: 33 },
+  { day: 7, usage: 7 },
 ];
 
-const data2013 = [
-  { quarter: 1, earnings: 15000 },
-  { quarter: 2, earnings: 12500 },
-  { quarter: 3, earnings: 19500 },
-  { quarter: 4, earnings: 13000 },
+const device2 = [
+  { day: 1, usage: 5 },
+  { day: 2, usage: 12 },
+  { day: 3, usage: 44 },
+  { day: 4, usage: 32 },
+  { day: 5, usage: 5 },
+  { day: 6, usage: 31 },
+  { day: 7, usage: 14 },
 ];
 
-const data2014 = [
-  { quarter: 1, earnings: 11500 },
-  { quarter: 2, earnings: 13250 },
-  { quarter: 3, earnings: 20000 },
-  { quarter: 4, earnings: 15500 },
+const device3 = [
+  { day: 1, usage: 3 },
+  { day: 2, usage: 9 },
+  { day: 3, usage: 13 },
+  { day: 4, usage: 34 },
+  { day: 5, usage: 9 },
+  { day: 6, usage: 13 },
+  { day: 7, usage: 34 },
 ];
 
-const data2015 = [
-  { quarter: 1, earnings: 18000 },
-  { quarter: 2, earnings: 13250 },
-  { quarter: 3, earnings: 15000 },
-  { quarter: 4, earnings: 12000 },
+const device4 = [
+  { day: 1, usage: 44 },
+  { day: 2, usage: 32 },
+  { day: 3, usage: 33 },
+  { day: 4, usage: 7 },
+  { day: 5, usage: 9 },
+  { day: 6, usage: 13 },
+  { day: 7, usage: 34 },
 ];
 
 class Graphs extends Component {
@@ -89,26 +102,88 @@ class Graphs extends Component {
     const { classes } = this.props;
     return (
       <FadeIn>
-
-        <Card style={{ display: "flex", width: "600px"}}>
-          <VictoryChart
-            domainPadding={20}
-            theme={VictoryTheme.material}
-            style={{ parent: { maxWidth: "100%" } }}
-          >
-            <VictoryAxis
-              tickValues={[1, 2, 3, 4]}
-              tickFormat={["Day 1", "Day 2", "Day 3", "Day 4"]}
-            />
-            <VictoryAxis dependentAxis tickFormat={(x) => `$${x / 1000}k`} />
-            <VictoryStack colorScale={"warm"}>
-              <VictoryBar data={data2012} x="quarter" y="earnings" />
-              <VictoryBar data={data2013} x="quarter" y="earnings" />
-              <VictoryBar data={data2014} x="quarter" y="earnings" />
-              <VictoryBar data={data2015} x="quarter" y="earnings" />
-            </VictoryStack>
-          </VictoryChart>
-        </Card>
+        <div class="d-flex">
+          <div>
+            <br />
+            <br /> <br />
+            <br /> <br />
+            <br />
+            <br />
+            <Typography component="h1" variant="h1">
+              Weekly
+            </Typography>
+            <Typography component="h1" variant="h1">
+              Usage
+            </Typography>
+          </div>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <div style={{ width: "650px" }}>
+            <VictoryChart
+              domainPadding={20}
+              theme={VictoryTheme.material}
+              style={{ parent: { maxWidth: "100%" } }}
+            >
+              <VictoryAxis
+                // tickValues={[1, 2, 3, 4]}
+                tickFormat={[
+                  "Day 1",
+                  "Day 2",
+                  "Day 3",
+                  "Day 4",
+                  "Day 5",
+                  "Day 6",
+                  "Day 7",
+                ]}
+              />
+              <VictoryAxis dependentAxis tickFormat={(x) => `$${x} mins`} />
+              <VictoryStack colorScale={"warm"}>
+                <VictoryBar data={device1} x="day" y="usage" />
+                <VictoryBar data={device2} x="day" y="usage" />
+                <VictoryBar data={device3} x="day" y="usage" />
+                <VictoryBar data={device4} x="day" y="usage" />
+              </VictoryStack>
+            </VictoryChart>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div>
+          <br />
+            <br /> <br />
+            <br /> <br />
+            <br />
+            <br />
+            <Typography component="h1" variant="h1">
+              Electricity
+            </Typography>
+            <Typography component="h1" variant="h1">
+              Usage
+            </Typography>
+          </div>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <div style={{ width: "630px" }}>
+            <VictoryChart theme={VictoryTheme.material}>
+              <VictoryLine
+                style={{
+                  data: { stroke: "#c43a31" },
+                  parent: { border: "1px solid #ccc" },
+                  parent: { maxWidth: "100%" } 
+                }}
+                data={[
+                  { x: 1, y: 2 },
+                  { x: 2, y: 3 },
+                  { x: 3, y: 5 },
+                  { x: 4, y: 4 },
+                  { x: 5, y: 7 },
+                  { x: 6, y: 7 },
+                  { x: 7, y: 7 },
+                ]}
+              />
+            </VictoryChart>
+          </div>
+        </div>
       </FadeIn>
     );
   }

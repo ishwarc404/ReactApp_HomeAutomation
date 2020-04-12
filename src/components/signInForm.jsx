@@ -151,14 +151,9 @@ class SignIn extends Component {
     );
     console.log(loginDetails);
     if (loginDetails == true) {
-      setTimeout(() => {
-        //closing the modal afterwards
+
         this.props.parentTrigger(this.state.userName); //sending parent the data
-        this.state.open = false;
-        this.setState({
-          open: this.state.open,
-        });
-      }, 3000);
+
     } else {
       this.state.userName = "";
       this.state.userPassword = "";

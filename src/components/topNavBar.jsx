@@ -25,11 +25,20 @@ import Menu from "./toggleMenu"
 import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import * as registerLoading from "../registeredloading.json";
-
+import * as deviceLoading from "../devicesloading.json"
 const defaultOptions = {
   loop: false,
   autoplay: true,
   animationData: registerLoading.default,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+
+const deviceLoadingOption = {
+  loop: true,
+  autoplay: true,
+  animationData: deviceLoading.default,
   rendererSettings: {
     preserveAspectRatio: "xMidYMid slice",
   },
@@ -53,6 +62,10 @@ const useStyles = (theme) => ({
     fontSize: 18,
     color: "#FFFFFF",
   },
+  topNavButtons: {
+    fontSize: 18,
+    color: "#2e3133",
+  },
 });
 class NavigationBar extends Component {
   state = {
@@ -60,7 +73,7 @@ class NavigationBar extends Component {
     sensorInfo: [],
     mainScreenMessage: false,
     sensorMessage: "",
-    userName: null,
+    userName: "ishwar",
 
     createUserPageState: false,
     linearLoadingState: false,
@@ -71,6 +84,7 @@ class NavigationBar extends Component {
     frontPageState: true,
     registeredloadingState: false,
     SignInState: false,
+    deviceloadingState: false
   };
 
   constructor() {
@@ -87,6 +101,8 @@ class NavigationBar extends Component {
     this.signInPage = this.signInPage.bind(this);
     this.backToHome = this.backToHome.bind(this);
     this.registerUser = this.registerUser.bind(this);
+
+    this.importDevices();
   }
 
   render() {
@@ -102,6 +118,7 @@ class NavigationBar extends Component {
             <div class="d-flex justify-content-center">
             <Button
               variant="default"
+              className={classes.topNavButtons}
               onClick={this.analyticsPage}
             >
               ANALYTICS
@@ -109,6 +126,7 @@ class NavigationBar extends Component {
             &nbsp; &nbsp;
             <Button
               variant="default"
+              className={classes.topNavButtons}
               onClick={this.importDevices}
             >
               SHOW DEVICES
@@ -116,6 +134,7 @@ class NavigationBar extends Component {
             &nbsp; &nbsp;
             <Button
               variant="default"
+              className={classes.topNavButtons}
               onClick={this.logoutSession}
             >
               LOG OUT
@@ -234,14 +253,15 @@ class NavigationBar extends Component {
         return (
           <div>
             <div className={centre_class}>
-              <Typography variant="h2" component="h2" gutterBottom>
-                Your devices
+              <Typography variant="h1" component="h1" >
+                Devices
               </Typography>
             </div>
           </div>
         );
       }
     };
+    
 
     const renderRegisteredLoading = () => {
       if (this.state.registeredloadingState) {
@@ -262,6 +282,22 @@ class NavigationBar extends Component {
       }
     };
 
+    const renderDeviceLoading = () => {
+      if (this.state.deviceloadingState) {
+        return (
+          <div className={centre_class}>
+            <FadeIn>
+              <br />
+              <br />
+              <br />
+              <br />
+              <Lottie options={deviceLoadingOption} height={240} width={240} />
+            </FadeIn>
+          </div>
+        );
+      }
+    };
+
     return (
       <FadeIn>
         <div>
@@ -275,7 +311,7 @@ class NavigationBar extends Component {
           <div>{renderRegisteredLoading()}</div>
           <div>{renderCreateUserForm()}</div>
           <div>{renderGraphs()}</div>
-          <div>{renderLinearLoadingAnimation()}</div>
+          <div>{renderDeviceLoading()}</div>
           <div>{renderMainScreenMessage()}</div>
           <br />
           <br />
@@ -367,11 +403,18 @@ class NavigationBar extends Component {
     }
 
     this.state.linearLoadingState = false; //removing the linear loader
-    this.state.NavBarButtonState = true;
+    this.state.deviceloadingState = false;
     this.state.AddMoreDevicesFormStatus = true;
     this.state.graphState = false;
+    this.state.deviceloadingState = false;
     this.state.mainScreenMessage = true;
+
+
+
+    this.state.frontPageState = false;
+    this.state.NavBarButtonState = true;
     this.setState({
+      deviceloadingState: this.state.deviceloadingState,
       linearLoadingState: this.state.linearLoadingState,
       deviceInfo: this.state.deviceInfo,
       mainScreenMessage: this.state.mainScreenMessage,
@@ -379,6 +422,8 @@ class NavigationBar extends Component {
       LogoutButtonState: this.state.LogoutButtonState,
       AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
       graphState: this.state.graphState,
+
+      frontPageState: this.state.frontPageState,
     });
 
     this.importSensorData(); //displaying the sensors tooo!
@@ -526,15 +571,15 @@ class NavigationBar extends Component {
     this.state.userName = userName;
     this.state.frontPageState = false;
     this.state.SignInState = false;
-    this.state.linearLoadingState = true;
     this.state.SignInButtonState = false; //empty because we need to remove it.
-    this.state.mainScreenMessage = "Loading Devices";
     this.state.createUserPageState = false;
+    this.state.deviceloadingState = true;
+    this.state.NavBarButtonState = true;
     this.setState({
+      NavBarButtonState:  this.state.NavBarButtonState,
+      deviceloadingState: this.state.deviceloadingState,
       userName: this.state.userName,
-      linearLoadingState: this.state.linearLoadingState,
       SignInButtonState: this.state.SignInButtonState,
-      mainScreenMessage: this.state.mainScreenMessage,
       createUserPageState: this.state.createUserPageState,
       frontPageState: this.state.frontPageState,
       SignInState: this.state.SignInState,

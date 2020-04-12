@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     Height: 150,
     opacity: 1,
     borderRadius: 9,
-    backgroundColor: "#212121",
+    backgroundColor: "#2E3133",
   },
   details: {
     display: "flex",
