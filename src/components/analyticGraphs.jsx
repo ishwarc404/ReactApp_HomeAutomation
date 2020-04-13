@@ -13,7 +13,9 @@ import {
   VictoryLine,
   VictoryLegend,
 } from "victory";
+
 import FadeIn from "react-fade-in";
+
 const useStyles = (theme) => ({
   root: {
     width: 400,

@@ -143,8 +143,9 @@ class SignIn extends Component {
   }
 
   async sendDataToParent() {
+
     var apiObj = new apiService();
-    var loginDetails = await apiObj.validateCredentials(
+    var loginDetails =  await apiObj.validateCredentials(
       "loginAuthentication",
       this.state.userName,
       this.state.userPassword

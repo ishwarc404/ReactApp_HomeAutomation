@@ -14,7 +14,6 @@ import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
 import AddMoreDevices from "./addMoreDevices";
-import { VictoryBar } from "victory";
 import Graphs from "./analyticGraphs";
 import CreateUserForm from "./createUserForm";
 import HomeTitle from "./homeTitle";
@@ -24,6 +23,8 @@ import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import * as registerLoading from "../registeredloading.json";
 import * as deviceLoading from "../devicesloading.json"
+
+
 const defaultOptions = {
   loop: false,
   autoplay: true,
@@ -72,8 +73,7 @@ class NavigationBar extends Component {
     sensorInfo: [],
     mainScreenMessage: false,
     sensorMessage: "",
-    userName: "ishwar",
-
+    userName: null,
     createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
@@ -101,7 +101,7 @@ class NavigationBar extends Component {
     this.backToHome = this.backToHome.bind(this);
     this.registerUser = this.registerUser.bind(this);
 
-    this.importDevices();
+    // this.importDevices();
 
   }
 
