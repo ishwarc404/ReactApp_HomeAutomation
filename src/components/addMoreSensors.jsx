@@ -10,7 +10,7 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import apiService from "../services/apiServices";
-import DevicesOtherIcon from '@material-ui/icons/DevicesOther';
+import SettingsRemoteIcon from "@material-ui/icons/SettingsRemote";
 const useStyles = (theme) => ({
   paper: {
     opacity: 0.99,
@@ -22,53 +22,64 @@ const useStyles = (theme) => ({
   },
 });
 
-class AddMoreDevices extends Component {
+class AddMoreSensors extends Component {
   state = {
     modalOpen: false,
-    device_name: null,
-    device_ID: null,
-    errorMessage: "Empty Field!"
+    sensor_name: null,
+    sensor_ID: null,
+    errorMessage: "Empty Field!",
   };
 
   constructor() {
     super();
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
-    this.addNewDevice = this.addNewDevice.bind(this);
+    this.addNewSensor = this.addNewSensor.bind(this);
   }
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <Button variant="contained"  aria-label="add" onClick={this.openDialog}><DevicesOtherIcon/>ADD DEVICES</Button>
+        <Button
+          variant="contained"
+          aria-label="add"
+          onClick={this.openDialog}
+        >
+          <SettingsRemoteIcon />
+          ADD SENSORS
+        </Button>
         <Dialog
           className={classes.paper}
           open={this.state.modalOpen}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Add a new device</DialogTitle>
+          <DialogTitle id="form-dialog-title">Add a new sensor</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
-              id="device_name"
-              label="Device Name"
-              style={{width: 550}}
-              onChange={(e) => this.setState({ device_name: e.target.value })}
-              error={this.state.device_name === ""}
+              id="sensor_name"
+              label="Sensor Name"
+              style={{ width: 550 }}
+              onChange={(e) => this.setState({ sensor_name: e.target.value })}
+              error={this.state.sensor_name === ""}
               helperText={
-                this.state.device_name === "" ? this.state.errorMessageUsername : " "
+                this.state.sensor_name === ""
+                  ? this.state.errorMessageUsername
+                  : " "
               }
             ></TextField>
             <TextField
               margin="dense"
-              id="device_id"
-              label="Device Unique Code"
-              style={{width: 550}}
-              onChange={(e) => this.setState({ device_ID: e.target.value })}
-              error={this.state.device_ID === ""}
+              id="sensor_ID"
+              label="Sensor Unique Code"
+              style={{ width: 550 }}
+              onChange={(e) => this.setState({ sensor_ID: e.target.value })}
+              error={this.state.sensor_ID === ""}
               helperText={
-                this.state.device_ID === "" ? this.state.errorMessageUsername : " "
+                this.state.sensor_ID === ""
+                  ? this.state.errorMessageUsername
+                  : " "
               }
             />
           </DialogContent>
@@ -76,7 +87,9 @@ class AddMoreDevices extends Component {
             <Button color="primary" onClick={this.closeDialog}>
               Cancel
             </Button>
-            <Button color="primary"  onClick={this.addNewDevice}>REGISTER DEVICE</Button>
+            <Button color="primary" onClick={this.addNewSensor}>
+              REGISTER SENSOR
+            </Button>
           </DialogActions>
         </Dialog>
       </div>
@@ -97,29 +110,27 @@ class AddMoreDevices extends Component {
     });
   }
 
-  async addNewDevice(){
+  async addNewSensor() {
     var apiObj = new apiService();
-    let returnedData = await apiObj.addDeviceToDatabase({
+    let returnedData = await apiObj.addSensorToDatabase({
       username: this.props.userName,
-      device_name: this.state.device_name,
-      device_ID: this.state.device_ID
+      sensor_name: this.state.sensor_name,
+      sensor_ID: this.state.sensor_ID,
     });
 
     if (returnedData) {
       this.closeDialog();
-    }
-    else{
-      this.state.device_ID = "";
-      this.state.device_name = "";
+    } else {
+      this.state.sensor_ID = "";
+      this.state.sensor_name = "";
       this.state.errorMessage = "Please retry";
       this.setState({
-        device_ID: this.state.device_ID,
-        device_name: this.state.device_name,
+        sensor_ID: this.state.sensor_ID,
+        sensor_name: this.state.sensor_name,
         errorMessage: this.state.errorMessage,
       });
     }
-
   }
 }
 
-export default withStyles(useStyles)(AddMoreDevices);
+export default withStyles(useStyles)(AddMoreSensors);

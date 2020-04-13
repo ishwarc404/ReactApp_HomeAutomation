@@ -14,6 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
 import AddMoreDevices from "./addMoreDevices";
+import AddMoreSensors from "./addMoreSensors";
 import Graphs from "./analyticGraphs";
 import CreateUserForm from "./createUserForm";
 import HomeTitle from "./homeTitle";
@@ -184,6 +185,8 @@ class NavigationBar extends Component {
         return (
           <div className={centre_class}>
             <AddMoreDevices userName={this.state.userName}></AddMoreDevices>
+            &nbsp; &nbsp;
+            <AddMoreSensors userName={this.state.userName}></AddMoreSensors>
           </div>
         );
       }
@@ -357,7 +360,7 @@ class NavigationBar extends Component {
           </Grid>
         </div>
         <FadeIn>
-          <div class={bottom_right_class}>
+          <div>
             <br />
             <br />
             {renderAddMoreDevicesForm()}

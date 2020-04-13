@@ -134,4 +134,23 @@ export default class ApiServices {
       return true;
     }
   }
+
+  async addSensorToDatabase(newData) {
+    //we need to make sure that username does not already exist
+    let returnedData;
+    returnedData = await apiInstance.instance.get(
+      `deviceData?username=${newData.username}`
+    );
+    if (returnedData.data.length == 0) {
+      return false;
+    } else {
+      //lets modify the returneddata
+      let data = returnedData.data[0];
+      // console.log(data);
+      data.sensors.sensor_name.push(newData.sensor_name)
+      data.sensors.sensor_ID.push(newData.sensor_ID)
+      returnedData = await apiInstance.instance.put(`deviceData/${data.id}`, data);
+      return true;
+    }
+  }
 }
