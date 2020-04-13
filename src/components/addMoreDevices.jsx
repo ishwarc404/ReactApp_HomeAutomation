@@ -7,10 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import PersonIcon from '@material-ui/icons/Person';
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-
+import apiService from "../services/apiServices";
 const useStyles = (theme) => ({
   paper: {
     opacity: 0.99,
@@ -25,12 +24,16 @@ const useStyles = (theme) => ({
 class AddMoreDevices extends Component {
   state = {
     modalOpen: false,
+    device_name: null,
+    device_ID: null,
+    errorMessage: "Empty Field!"
   };
 
   constructor() {
     super();
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
+    this.addNewDevice = this.addNewDevice.bind(this);
   }
   render() {
     const { classes } = this.props;
@@ -52,19 +55,29 @@ class AddMoreDevices extends Component {
               id="device_name"
               label="Device Name"
               style={{width: 550}}
+              onChange={(e) => this.setState({ device_name: e.target.value })}
+              error={this.state.device_name === ""}
+              helperText={
+                this.state.device_name === "" ? this.state.errorMessageUsername : " "
+              }
             ></TextField>
             <TextField
               margin="dense"
               id="device_id"
               label="Device Unique Code"
               style={{width: 550}}
+              onChange={(e) => this.setState({ device_ID: e.target.value })}
+              error={this.state.device_ID === ""}
+              helperText={
+                this.state.device_ID === "" ? this.state.errorMessageUsername : " "
+              }
             />
           </DialogContent>
           <DialogActions>
             <Button color="primary" onClick={this.closeDialog}>
               Cancel
             </Button>
-            <Button color="primary">REGISTER DEVICE</Button>
+            <Button color="primary"  onClick={this.addNewDevice}>REGISTER DEVICE</Button>
           </DialogActions>
         </Dialog>
       </div>
@@ -83,6 +96,30 @@ class AddMoreDevices extends Component {
     this.setState({
       modalOpen: this.state.modalOpen,
     });
+  }
+
+  async addNewDevice(){
+    var apiObj = new apiService();
+    let returnedData = await apiObj.addDeviceToDatabase({
+      username: this.props.userName,
+      device_name: this.state.device_name,
+      device_ID: this.state.device_ID
+    });
+
+    if (returnedData) {
+      this.closeDialog();
+    }
+    else{
+      this.state.device_ID = "";
+      this.state.device_name = "";
+      this.state.errorMessage = "Please retry";
+      this.setState({
+        device_ID: this.state.device_ID,
+        device_name: this.state.device_name,
+        errorMessage: this.state.errorMessage,
+      });
+    }
+
   }
 }
 

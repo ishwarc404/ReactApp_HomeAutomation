@@ -73,7 +73,7 @@ class NavigationBar extends Component {
     sensorInfo: [],
     mainScreenMessage: false,
     sensorMessage: "",
-    userName: null,
+    userName: "drasti",
     createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
@@ -101,7 +101,7 @@ class NavigationBar extends Component {
     this.backToHome = this.backToHome.bind(this);
     this.registerUser = this.registerUser.bind(this);
 
-    // this.importDevices();
+    this.importDevices();
 
   }
 
@@ -183,7 +183,7 @@ class NavigationBar extends Component {
       if (this.state.AddMoreDevicesFormStatus) {
         return (
           <div className={centre_class}>
-            <AddMoreDevices></AddMoreDevices>
+            <AddMoreDevices userName={this.state.userName}></AddMoreDevices>
           </div>
         );
       }

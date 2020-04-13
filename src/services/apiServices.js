@@ -115,4 +115,23 @@ export default class ApiServices {
       return true;
     }
   }
+
+  async addDeviceToDatabase(newData) {
+    //we need to make sure that username does not already exist
+    let returnedData;
+    returnedData = await apiInstance.instance.get(
+      `deviceData?username=${newData.username}`
+    );
+    if (returnedData.data.length == 0) {
+      return false;
+    } else {
+      //lets modify the returneddata
+      let data = returnedData.data[0];
+      // console.log(data);
+      data.devices.device_name.push(newData.device_name)
+      data.devices.device_ID.push(newData.device_ID)
+      returnedData = await apiInstance.instance.put(`deviceData/${data.id}`, data);
+      return true;
+    }
+  }
 }
