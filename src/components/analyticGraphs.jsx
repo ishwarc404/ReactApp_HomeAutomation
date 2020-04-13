@@ -1,18 +1,9 @@
 import React, { useState, Component } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import bulb from "./assets/images/lightbulb.png";
-import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
-import Badge from "@material-ui/core/Badge";
-import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
-import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
+import apiService from "../services/apiServices";
+
 import {
   VictoryBar,
   VictoryChart,
@@ -20,7 +11,7 @@ import {
   VictoryTheme,
   VictoryStack,
   VictoryLine,
-  VictoryZoomContainer,
+  VictoryLegend,
 } from "victory";
 import FadeIn from "react-fade-in";
 const useStyles = (theme) => ({
@@ -50,52 +41,18 @@ const useStyles = (theme) => ({
   },
 });
 
-const device1 = [
-  { day: 1, usage: 5 },
-  { day: 2, usage: 5 },
-  { day: 3, usage: 31 },
-  { day: 4, usage: 14 },
-  { day: 5, usage: 32 },
-  { day: 6, usage: 33 },
-  { day: 7, usage: 7 },
-];
-
-const device2 = [
-  { day: 1, usage: 5 },
-  { day: 2, usage: 12 },
-  { day: 3, usage: 44 },
-  { day: 4, usage: 32 },
-  { day: 5, usage: 5 },
-  { day: 6, usage: 31 },
-  { day: 7, usage: 14 },
-];
-
-const device3 = [
-  { day: 1, usage: 3 },
-  { day: 2, usage: 9 },
-  { day: 3, usage: 13 },
-  { day: 4, usage: 34 },
-  { day: 5, usage: 9 },
-  { day: 6, usage: 13 },
-  { day: 7, usage: 34 },
-];
-
-const device4 = [
-  { day: 1, usage: 44 },
-  { day: 2, usage: 32 },
-  { day: 3, usage: 33 },
-  { day: 4, usage: 7 },
-  { day: 5, usage: 9 },
-  { day: 6, usage: 13 },
-  { day: 7, usage: 34 },
-];
 
 class Graphs extends Component {
   state = {
     device_status: "white",
+    usageData: [],
+    deviceNames:[],
+    electricityData:null
   };
   constructor(props) {
     super();
+    this.getUsageData = this.getUsageData.bind(this);
+    this.getUsageData();
   }
 
   render() {
@@ -115,18 +72,31 @@ class Graphs extends Component {
             <Typography component="h1" variant="h1">
               Usage
             </Typography>
+            <br />
+            <br />
+            <br />
+            <VictoryLegend
+              orientation="horizontal"
+              gutter={20}
+              style={{ border: { stroke: "black" } }}
+              colorScale={"warm"}
+              data={[
+                { name: this.state.deviceNames[0] },
+                { name: this.state.deviceNames[1] },
+                { name: this.state.deviceNames[2] },
+              ]}
+            />
           </div>
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp;&nbsp; &nbsp;
           <div style={{ width: "650px" }}>
             <VictoryChart
               domainPadding={20}
               theme={VictoryTheme.material}
               style={{ parent: { maxWidth: "100%" } }}
+              padding={{ left: 60, top: 50, bottom: 50, right: 50 }}
             >
               <VictoryAxis
-                // tickValues={[1, 2, 3, 4]}
                 tickFormat={[
                   "Day 1",
                   "Day 2",
@@ -137,12 +107,11 @@ class Graphs extends Component {
                   "Day 7",
                 ]}
               />
-              <VictoryAxis dependentAxis tickFormat={(x) => `$${x} mins`} />
+              <VictoryAxis dependentAxis tickFormat={(x) => `${x} mins`} />
               <VictoryStack colorScale={"warm"}>
-                <VictoryBar data={device1} x="day" y="usage" />
-                <VictoryBar data={device2} x="day" y="usage" />
-                <VictoryBar data={device3} x="day" y="usage" />
-                <VictoryBar data={device4} x="day" y="usage" />
+                <VictoryBar data={this.state.usageData[0]} x="day" y="usage" />
+                <VictoryBar data={this.state.usageData[1]} x="day" y="usage" />
+                <VictoryBar data={this.state.usageData[2]} x="day" y="usage" />
               </VictoryStack>
             </VictoryChart>
           </div>
@@ -150,7 +119,7 @@ class Graphs extends Component {
         <hr></hr>
         <div class="d-flex  justify-content-center">
           <div>
-          <br />
+            <br />
             <br /> <br />
             <br /> <br />
             <br />
@@ -170,17 +139,9 @@ class Graphs extends Component {
                 style={{
                   data: { stroke: "#c43a31" },
                   parent: { border: "1px solid #ccc" },
-                  parent: { maxWidth: "100%" } 
+                  parent: { maxWidth: "100%" },
                 }}
-                data={[
-                  { x: 1, y: 2 },
-                  { x: 2, y: 3 },
-                  { x: 3, y: 5 },
-                  { x: 4, y: 4 },
-                  { x: 5, y: 7 },
-                  { x: 6, y: 7 },
-                  { x: 7, y: 7 },
-                ]}
+                data={this.state.electricityData}
               />
             </VictoryChart>
           </div>
@@ -201,27 +162,55 @@ class Graphs extends Component {
               Usage Bill
             </Typography>
           </div>
-          &nbsp; &nbsp; &nbsp;
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           &nbsp; &nbsp; &nbsp;
           <div>
-          <br />
-          <br />
             <br />
             <br />
             <br />
-          <br />
+            <br />
+            <br />
+            <br />
             <br />
             <br />
             <Typography component="h1" variant="h1">
-             Rs.2336
+              Rs.2336
             </Typography>
           </div>
         </div>
       </FadeIn>
     );
+  }
+  async getUsageData(){
+    var apiObj = new apiService();
+    var data_retrieved = await apiObj.getusageData(
+      "deviceData",
+      "ishwar"
+    );
+    var i;
+    this.state.usageData=[];
+    for(i=0;i<data_retrieved.length;i++){
+      this.state.deviceNames.push(data_retrieved[i].device_name);
+      this.state.usageData.push(data_retrieved[i].device_usage);
+    }
+
+    //electricity usage data
+    this.state.electricityData = await apiObj.getElectricityData(
+      "deviceData",
+      "ishwar"
+    );
+    this.setState({
+      usageData: this.state.usageData,
+      deviceNames: this.state.deviceNames,
+      electricityData: this.state.electricityData
+    }
+    );
+
+    setTimeout(() => {
+      this.getUsageData();
+    }, 2000);
   }
 }
 

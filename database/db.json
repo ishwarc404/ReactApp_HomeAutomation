@@ -17,7 +17,54 @@
         "sensor_name": ["TEMPERATURE SENSOR","MOTION DETECTION"],
         "sensor_ID": ["temp","motion"],
         "sensor_value":[31,"No activity"]
-      }
+      },
+      "usageData":[
+        {
+          "device_name":"LED BULB",
+          "device_usage":[
+            { "day": 1, "usage":20},
+            { "day": 2, "usage": 5 },
+            { "day": 3, "usage": 31 },
+            { "day": 4, "usage": 14 },
+            { "day": 5, "usage": 32 },
+            { "day": 6, "usage": 33 },
+            { "day": 7, "usage": 7 }
+          ]
+        },
+        {
+          "device_name":"SPEAKER",
+          "device_usage":[
+            {"day": 1,"usage": 5 },
+            {"day": 2,"usage": 12 },
+            {"day": 3,"usage": 44 },
+            {"day": 4,"usage": 32 },
+            {"day": 5,"usage": 5 },
+            {"day": 6,"usage": 31 },
+            {"day": 7,"usage": 14 }
+          ]
+        },
+        {
+          "device_name":"FAN",
+          "device_usage":[
+            {"day": 1,"usage": 3 },
+            {"day": 2,"usage": 9 },
+            {"day": 3,"usage": 13 },
+            {"day": 4,"usage": 34 },
+            {"day": 5,"usage": 9 },
+            {"day": 6,"usage": 13 },
+            {"day": 7,"usage": 88 }
+          ]
+        }
+      ],
+      "electricity_usage":[
+        {"x": 1,"y": 2 },
+        {"x": 2,"y": 3 },
+        {"x": 3,"y": 5 },
+        {"x": 4,"y": 4 },
+        {"x": 5,"y": 4.2 },
+        {"x": 6,"y": 5.1 },
+        {"x": 7,"y": 6 }
+      ]
     }
   ]
 }

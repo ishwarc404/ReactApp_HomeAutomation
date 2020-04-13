@@ -53,4 +53,28 @@ export default class ApiServices {
     console.log("SENSOR DATA:", returnedData.data[0].sensors);
     return returnedData.data[0].sensors;
   }
+
+  async getDeviceData(type, username) {
+    let returnedData;
+    returnedData = await apiInstance.instance.get(
+      `${type}?username=${username}`
+    );
+    return returnedData.data[0].devices;
+  }
+
+  async getusageData(type, username) {
+    let returnedData;
+    returnedData = await apiInstance.instance.get(
+      `${type}?username=${username}`
+    );
+    return returnedData.data[0].usageData;
+  }
+
+  async getElectricityData(type, username) {
+    let returnedData;
+    returnedData = await apiInstance.instance.get(
+      `${type}?username=${username}`
+    );
+    return returnedData.data[0].electricity_usage;
+  }
 }

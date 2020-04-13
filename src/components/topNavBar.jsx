@@ -13,8 +13,6 @@ import LinearLoader from "./linearLoading";
 import Grid from "@material-ui/core/Grid";
 import FadeIn from "react-fade-in";
 import apiService from "../services/apiServices";
-// import CreateUser from "./createUser";
-
 import AddMoreDevices from "./addMoreDevices";
 import { VictoryBar } from "victory";
 import Graphs from "./analyticGraphs";
@@ -68,6 +66,7 @@ const useStyles = (theme) => ({
   },
 });
 class NavigationBar extends Component {
+
   state = {
     deviceInfo: [],
     sensorInfo: [],
@@ -103,9 +102,11 @@ class NavigationBar extends Component {
     this.registerUser = this.registerUser.bind(this);
 
     this.importDevices();
+
   }
 
   render() {
+
     let centre_class = "d-flex justify-content-center";
     let devices_class = "d-flex flex-wrap justify-content-around";
     let bottom_right_class = "d-flex justify-content-end";
@@ -408,12 +409,11 @@ class NavigationBar extends Component {
     this.state.graphState = false;
     this.state.deviceloadingState = false;
     this.state.mainScreenMessage = true;
-
-
-
     this.state.frontPageState = false;
     this.state.NavBarButtonState = true;
+
     this.setState({
+
       deviceloadingState: this.state.deviceloadingState,
       linearLoadingState: this.state.linearLoadingState,
       deviceInfo: this.state.deviceInfo,
