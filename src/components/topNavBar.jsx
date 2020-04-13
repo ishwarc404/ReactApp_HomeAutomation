@@ -19,12 +19,14 @@ import Graphs from "./analyticGraphs";
 import CreateUserForm from "./createUserForm";
 import HomeTitle from "./homeTitle";
 import SignIn from "./signInForm";
-import Menu from "./toggleMenu"
+import Menu from "./toggleMenu";
 import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import * as registerLoading from "../registeredloading.json";
-import * as deviceLoading from "../devicesloading.json"
+import * as deviceLoading from "../devicesloading.json";
 
+// var __html = require("./about.html");
+// var template = { __html: __html };
 
 const defaultOptions = {
   loop: false,
@@ -68,13 +70,12 @@ const useStyles = (theme) => ({
   },
 });
 class NavigationBar extends Component {
-
   state = {
     deviceInfo: [],
     sensorInfo: [],
     mainScreenMessage: false,
     sensorMessage: "",
-    userName: "ishwar",
+    userName: null,
     createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
@@ -82,9 +83,10 @@ class NavigationBar extends Component {
     graphState: false,
     topNavBarState: false,
     frontPageState: true,
+    aboutPageState: true,
     registeredloadingState: false,
     SignInState: false,
-    deviceloadingState: false
+    deviceloadingState: false,
   };
 
   constructor() {
@@ -101,13 +103,10 @@ class NavigationBar extends Component {
     this.signInPage = this.signInPage.bind(this);
     this.backToHome = this.backToHome.bind(this);
     this.registerUser = this.registerUser.bind(this);
-
-    this.importDevices();
-
+    this.aboutPage = this.aboutPage.bind(this);
   }
 
   render() {
-
     let centre_class = "d-flex justify-content-center";
     let devices_class = "d-flex flex-wrap justify-content-around";
     let bottom_right_class = "d-flex justify-content-end";
@@ -116,33 +115,33 @@ class NavigationBar extends Component {
     const renderNavBarButtons = () => {
       if (this.state.NavBarButtonState) {
         return (
-          <div >
+          <div>
             <div class="d-flex justify-content-center">
-            <Button
-              variant="default"
-              className={classes.topNavButtons}
-              onClick={this.analyticsPage}
-            >
-              ANALYTICS
-            </Button>
-            &nbsp; &nbsp;
-            <Button
-              variant="default"
-              className={classes.topNavButtons}
-              onClick={this.importDevices}
-            >
-              SHOW DEVICES
-            </Button>
-            &nbsp; &nbsp;
-            <Button
-              variant="default"
-              className={classes.topNavButtons}
-              onClick={this.logoutSession}
-            >
-              LOG OUT
-            </Button>
-          </div>
-          <br/>
+              <Button
+                variant="default"
+                className={classes.topNavButtons}
+                onClick={this.analyticsPage}
+              >
+                ANALYTICS
+              </Button>
+              &nbsp; &nbsp;
+              <Button
+                variant="default"
+                className={classes.topNavButtons}
+                onClick={this.importDevices}
+              >
+                SHOW DEVICES
+              </Button>
+              &nbsp; &nbsp;
+              <Button
+                variant="default"
+                className={classes.topNavButtons}
+                onClick={this.logoutSession}
+              >
+                LOG OUT
+              </Button>
+            </div>
+            <br />
           </div>
         );
       }
@@ -155,10 +154,6 @@ class NavigationBar extends Component {
             <HomeTitle></HomeTitle>
             <br /> <br /> <br />
             <div class="d-flex justify-content-center">
-              <Button className={classes.mainNavButtons} variant="contained">
-                PRODUCTS
-              </Button>{" "}
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Button
                 className={classes.mainNavButtons}
                 variant="contained"
@@ -173,6 +168,10 @@ class NavigationBar extends Component {
                 variant="default"
               >
                 CREATE USER
+              </Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button className={classes.mainNavButtons} variant="contained" onClick={this.aboutPage}>
+                ABOUT US
               </Button>
             </div>
           </div>
@@ -192,22 +191,17 @@ class NavigationBar extends Component {
       }
     };
 
-    const renderLinearLoadingAnimation = () => {
-      if (this.state.linearLoadingState) {
-        return (
-          <div className={centre_class}>
-            <LinearLoader></LinearLoader>
-          </div>
-        );
-      }
-    };
+    // const renderAboutPage = () => {
+    //   if (this.state.aboutPageState) {
+    //     return <div dangerouslySetInnerHTML={template} />;
+    //   }
+    // };
 
     const renderGraphs = () => {
       if (this.state.graphState) {
         return (
           <div className={centre_class}>
-            <Graphs
-             userName={this.state.userName}></Graphs>
+            <Graphs userName={this.state.userName}></Graphs>
           </div>
         );
       }
@@ -258,7 +252,7 @@ class NavigationBar extends Component {
         return (
           <div>
             <div className={centre_class}>
-              <Typography variant="h1" component="h1" >
+              <Typography variant="h1" component="h1">
                 Devices
               </Typography>
             </div>
@@ -266,7 +260,6 @@ class NavigationBar extends Component {
         );
       }
     };
-    
 
     const renderRegisteredLoading = () => {
       if (this.state.registeredloadingState) {
@@ -311,6 +304,7 @@ class NavigationBar extends Component {
             <br />
             {renderFrontPage()}
           </div>
+          <div>{renderAboutPage()}</div>
           <div>{renderNavBarButtons()}</div>
           <div>{renderSignInForm()}</div>
           <div>{renderRegisteredLoading()}</div>
@@ -417,7 +411,6 @@ class NavigationBar extends Component {
     this.state.NavBarButtonState = true;
 
     this.setState({
-
       deviceloadingState: this.state.deviceloadingState,
       linearLoadingState: this.state.linearLoadingState,
       deviceInfo: this.state.deviceInfo,
@@ -580,7 +573,7 @@ class NavigationBar extends Component {
     this.state.deviceloadingState = true;
     this.state.NavBarButtonState = true;
     this.setState({
-      NavBarButtonState:  this.state.NavBarButtonState,
+      NavBarButtonState: this.state.NavBarButtonState,
       deviceloadingState: this.state.deviceloadingState,
       userName: this.state.userName,
       SignInButtonState: this.state.SignInButtonState,
@@ -605,6 +598,15 @@ class NavigationBar extends Component {
     });
   }
 
+  aboutPage(){
+    this.state.frontPageState = false;
+    this.state.aboutPageState = true;
+    this.setState({
+      frontPageState: this.state.frontPageState,
+      aboutPageState: this.state.aboutPageState,
+    });
+
+  }
   registerUser() {
     this.state.registeredloadingState = true;
     this.state.createUserPageState = false;
