@@ -77,4 +77,42 @@ export default class ApiServices {
     );
     return returnedData.data[0].electricity_usage;
   }
+
+  async addUserToDatabase(data) {
+    //we need to make sure that username does not already exist
+    let returnedData;
+    returnedData = await apiInstance.instance.get(
+      `loginAuthentication?username=${data.username}`
+    );
+    console.log(returnedData.data)
+    if (returnedData.data.length != 0) {
+      return false;
+    } else {
+      returnedData = await apiInstance.instance.post(
+        "loginAuthentication",
+        data
+      );
+      //we now need to add devices and stuff too
+      let tempdata = {
+        username: data.username,
+        devices:{
+          device_name:[],
+          device_ID:[]
+        },
+        sensors:{
+          sensor_name:[],
+          sensor_ID:[],
+          sensor_value:[]
+        },
+        usageData:[]
+      }
+
+      //we need to post this too
+      await apiInstance.instance.post(
+        "deviceData",
+        tempdata
+      );
+      return true;
+    }
+  }
 }

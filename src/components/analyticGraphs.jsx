@@ -52,7 +52,7 @@ class Graphs extends Component {
     electricityData:null
   };
   constructor(props) {
-    super();
+    super(props);
     this.getUsageData = this.getUsageData.bind(this);
     this.getUsageData();
   }
@@ -189,7 +189,7 @@ class Graphs extends Component {
     var apiObj = new apiService();
     var data_retrieved = await apiObj.getusageData(
       "deviceData",
-      "ishwar"
+      this.props.userName
     );
     var i;
     this.state.usageData=[];
@@ -201,7 +201,7 @@ class Graphs extends Component {
     //electricity usage data
     this.state.electricityData = await apiObj.getElectricityData(
       "deviceData",
-      "ishwar"
+      this.props.userName
     );
     this.setState({
       usageData: this.state.usageData,

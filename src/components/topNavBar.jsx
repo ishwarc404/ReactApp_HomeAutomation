@@ -203,7 +203,8 @@ class NavigationBar extends Component {
       if (this.state.graphState) {
         return (
           <div className={centre_class}>
-            <Graphs></Graphs>
+            <Graphs
+             userName={this.state.userName}></Graphs>
           </div>
         );
       }
