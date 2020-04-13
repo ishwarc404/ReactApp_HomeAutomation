@@ -74,7 +74,7 @@ class NavigationBar extends Component {
     sensorInfo: [],
     mainScreenMessage: false,
     sensorMessage: "",
-    userName: "drasti",
+    userName: "ishwar",
     createUserPageState: false,
     linearLoadingState: false,
     NavBarButtonState: false,
