@@ -43,13 +43,13 @@ const useStyles = (theme) => ({
   },
 });
 
-
 class Graphs extends Component {
   state = {
     device_status: "white",
     usageData: [],
-    deviceNames:[],
-    electricityData:null
+    deviceNames: [],
+    electricityData: null,
+    electricityBill:null
   };
   constructor(props) {
     super(props);
@@ -178,22 +178,22 @@ class Graphs extends Component {
             <br />
             <br />
             <Typography component="h1" variant="h1">
-              Rs.2336
+              Rs.{this.state.electricityBill}
             </Typography>
           </div>
         </div>
       </FadeIn>
     );
   }
-  async getUsageData(){
+  async getUsageData() {
     var apiObj = new apiService();
     var data_retrieved = await apiObj.getusageData(
       "deviceData",
       this.props.userName
     );
     var i;
-    this.state.usageData=[];
-    for(i=0;i<data_retrieved.length;i++){
+    this.state.usageData = [];
+    for (i = 0; i < data_retrieved.length; i++) {
       this.state.deviceNames.push(data_retrieved[i].device_name);
       this.state.usageData.push(data_retrieved[i].device_usage);
     }
@@ -206,10 +206,14 @@ class Graphs extends Component {
     this.setState({
       usageData: this.state.usageData,
       deviceNames: this.state.deviceNames,
-      electricityData: this.state.electricityData
-    }
-    );
+      electricityData: this.state.electricityData,
+    });
 
+    this.state.electricityBill = await apiObj.getElectricityBill();
+    this.setState({
+      electricityBill: this.state.electricityBill
+    });
+    
     setTimeout(() => {
       this.getUsageData();
     }, 2000);

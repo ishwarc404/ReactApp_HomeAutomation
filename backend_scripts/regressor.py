@@ -73,7 +73,6 @@ def returnCost():
     data['electricity_usage'] = newvalues
     userID = data["id"]
     data=json.dumps(data)
-    print((data))
     requests.put("http://localhost:3000/deviceData/1",data=data,headers={"content-type": "application/json"})
     ########END OF JSON UPDATE
 

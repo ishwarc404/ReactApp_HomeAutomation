@@ -1,5 +1,7 @@
 import Api from "../api/index";
+import FlaskApi from "../api/flask";
 let apiInstance = new Api();
+let flaskApiInstance = new FlaskApi();
 
 export default class ApiServices {
   async readFromDatabase(type) {
@@ -152,5 +154,11 @@ export default class ApiServices {
       returnedData = await apiInstance.instance.put(`deviceData/${data.id}`, data);
       return true;
     }
+  }
+
+  async getElectricityBill(type) {
+    let returnedData;
+    returnedData = await flaskApiInstance.instance.get("electricity_bill");
+    return returnedData.data;
   }
 }

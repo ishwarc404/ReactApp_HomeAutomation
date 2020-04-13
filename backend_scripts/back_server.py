@@ -1,6 +1,8 @@
 from flask_cors import CORS, cross_origin
 from flask import Flask, request, render_template
 import json
+import regressor
+
 app = Flask(__name__)
 CORS(app)
 
@@ -50,6 +52,11 @@ def door_off():
 
 
 
+@app.route("/electricity_bill")
+@cross_origin()
+def electricity_bill():
+    return str(regressor.returnCost())
+
 @app.route("/return_status")
 @cross_origin()
 def return_status():
@@ -61,4 +68,4 @@ def return_status():
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host="0.0.0.0", port=8000)
+    app.run(port=8000)

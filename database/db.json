@@ -9,6 +9,11 @@
       "username": "drasti",
       "password": "drasti",
       "id": 2
+    },
+    {
+      "username": "shreya",
+      "password": "shreya",
+      "id": 3
     }
   ],
   "deviceData": [
@@ -149,19 +154,19 @@
         },
         {
           "x": 2,
-          "y": 18
-        },
-        {
-          "x": 3,
           "y": 13
         },
         {
+          "x": 3,
+          "y": 17
+        },
+        {
           "x": 4,
-          "y": 19
+          "y": 13
         },
         {
           "x": 5,
-          "y": 16
+          "y": 13
         },
         {
           "x": 6,
@@ -169,31 +174,35 @@
         },
         {
           "x": 7,
-          "y": 18
+          "y": 14
         },
         {
           "x": 8,
-          "y": 13
+          "y": 15
         },
         {
           "x": 9,
-          "y": 16
+          "y": 13
         },
         {
           "x": 10,
-          "y": 16
+          "y": 17
         },
         {
           "x": 11,
-          "y": 16
+          "y": 19
         },
         {
           "x": 12,
-          "y": 18
+          "y": 19
         },
         {
           "x": 13,
-          "y": 17
+          "y": 15
+        },
+        {
+          "x": 14,
+          "y": 14
         }
       ]
     },
@@ -210,6 +219,20 @@
       },
       "usageData": [],
       "id": 2
+    },
+    {
+      "username": "shreya",
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 3
     }
   ]
 }
