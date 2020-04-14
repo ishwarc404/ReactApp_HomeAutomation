@@ -24,7 +24,7 @@ import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import * as registerLoading from "../registeredloading.json";
 import * as deviceLoading from "../devicesloading.json";
-
+import AboutPage from "./aboutPage"
 // var __html = require("./about.html");
 // var template = { __html: __html };
 
@@ -83,7 +83,7 @@ class NavigationBar extends Component {
     graphState: false,
     topNavBarState: false,
     frontPageState: true,
-    aboutPageState: true,
+    aboutPageState: false,
     registeredloadingState: false,
     SignInState: false,
     deviceloadingState: false,
@@ -170,7 +170,11 @@ class NavigationBar extends Component {
                 CREATE USER
               </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button className={classes.mainNavButtons} variant="contained" onClick={this.aboutPage}>
+              <Button
+                className={classes.mainNavButtons}
+                variant="contained"
+                onClick={this.aboutPage}
+              >
                 ABOUT US
               </Button>
             </div>
@@ -243,6 +247,18 @@ class NavigationBar extends Component {
               backToHome={this.backToHome}
               parentTrigger={this.parentTrigger}
             ></SignIn>
+          </div>
+        );
+      }
+    };
+
+    const renderAboutPage = () => {
+      if (this.state.aboutPageState) {
+        return (
+          <div className={centre_class}>
+                        <AboutPage
+              backToHome={this.backToHome}
+            ></AboutPage>
           </div>
         );
       }
@@ -598,14 +614,13 @@ class NavigationBar extends Component {
     });
   }
 
-  aboutPage(){
+  aboutPage() {
     this.state.frontPageState = false;
     this.state.aboutPageState = true;
     this.setState({
       frontPageState: this.state.frontPageState,
       aboutPageState: this.state.aboutPageState,
     });
-
   }
   registerUser() {
     this.state.registeredloadingState = true;
