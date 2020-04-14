@@ -578,7 +578,9 @@ class NavigationBar extends Component {
     this.state.LogoutButtonState = false;
     this.state.AddMoreDevicesFormStatus = false;
     this.state.graphState = true;
+    this.state.noDevicesAnimation =false;
     this.setState({
+      noDevicesAnimation: this.state.noDevicesAnimation,
       deviceInfo: this.state.deviceInfo,
       sensorInfo: this.state.sensorInfo,
       mainScreenMessage: this.state.mainScreenMessage,
@@ -605,6 +607,7 @@ class NavigationBar extends Component {
     this.state.graphState = false;
     this.state.AddMoreDevicesFormStatus = false;
     this.state.frontPageState = true;
+    this.state.noDevicesAnimation =false;
     this.setState({
       deviceInfo: this.state.deviceInfo,
       sensorInfo: this.state.sensorInfo,
@@ -618,6 +621,7 @@ class NavigationBar extends Component {
       AddMoreDevicesFormStatus: this.state.AddMoreDevicesFormStatus,
       graphState: this.state.graphState,
       frontPageState: this.state.frontPageState,
+      noDevicesAnimation: this.state.noDevicesAnimation
     });
   }
   parentTrigger(userName) {
