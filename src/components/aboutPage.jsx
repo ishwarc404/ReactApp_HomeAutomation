@@ -1,4 +1,4 @@
-import React, { useState, Component, useStyles } from "react";
+import React, { useState, Component } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -8,16 +8,18 @@ import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import "bootstrap/dist/css/bootstrap.css";
 import * as earthData from "../earthloading.json";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 // import { Image } from "react-native";
 
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: earthData.default,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice",
-  },
-};
+const useStyles = (theme) => ({
+
+    mainNavButtons: {
+      backgroundColor: "#2e3133",
+      fontSize: 25,
+      color: "#FFFFFF",
+    },
+  });
+  
 
 class AboutPage extends Component {
   constructor(props) {
@@ -28,7 +30,15 @@ class AboutPage extends Component {
     const { classes } = this.props;
     return (
       <FadeIn>
-        <div>
+                  <div class="d-flex align-items-start">
+          <Button
+            color="default"
+            className={classes.mainNavButtons}
+            onClick={this.props.backToHome}
+          >
+            <ArrowBackIcon />
+          </Button>
+        </div>
           <br />
           <br />
           <div>
@@ -104,7 +114,6 @@ class AboutPage extends Component {
               />
             </div>
           </div>
-        </div>
       </FadeIn>
     );
   }

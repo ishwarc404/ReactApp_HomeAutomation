@@ -604,12 +604,14 @@ class NavigationBar extends Component {
   }
 
   backToHome() {
+    this.state.aboutPageState = false;
     this.state.SignInState = false;
     this.state.frontPageState = true;
     this.state.createUserPageState = false;
     this.setState({
       frontPageState: this.state.frontPageState,
       createUserPageState: this.state.createUserPageState,
+      aboutPageState: this.state.aboutPageState,
       SignInState: this.state.SignInState,
     });
   }
