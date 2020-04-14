@@ -24,7 +24,8 @@ import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
 import * as registerLoading from "../registeredloading.json";
 import * as deviceLoading from "../devicesloading.json";
-import AboutPage from "./aboutPage"
+import * as noDevicesLoading from "../nodevicesloading.json";
+import AboutPage from "./aboutPage";
 // var __html = require("./about.html");
 // var template = { __html: __html };
 
@@ -32,6 +33,15 @@ const defaultOptions = {
   loop: false,
   autoplay: true,
   animationData: registerLoading.default,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+
+const noDevices = {
+  loop: false,
+  autoplay: true,
+  animationData: noDevicesLoading.default,
   rendererSettings: {
     preserveAspectRatio: "xMidYMid slice",
   },
@@ -87,6 +97,7 @@ class NavigationBar extends Component {
     registeredloadingState: false,
     SignInState: false,
     deviceloadingState: false,
+    noDevicesAnimation: false,
   };
 
   constructor() {
@@ -256,9 +267,7 @@ class NavigationBar extends Component {
       if (this.state.aboutPageState) {
         return (
           <div className={centre_class}>
-                        <AboutPage
-              backToHome={this.backToHome}
-            ></AboutPage>
+            <AboutPage backToHome={this.backToHome}></AboutPage>
           </div>
         );
       }
@@ -289,6 +298,22 @@ class NavigationBar extends Component {
               <Lottie options={defaultOptions} height={340} width={340} />
               <Typography variant="h2" component="h2" gutterBottom>
                 User created!
+              </Typography>
+            </FadeIn>
+          </div>
+        );
+      }
+    };
+    const noDevicesAnimationFunction = () => {
+      if (this.state.noDevicesAnimation) {
+        return (
+          <div className={centre_class}>
+            <FadeIn>
+              <br />
+              <br />
+              <Lottie options={noDevices} height={160} width={160} />
+              <Typography variant="h5" component="h5" gutterBottom>
+                No devices or sensors found. Add a new one!
               </Typography>
             </FadeIn>
           </div>
@@ -328,6 +353,7 @@ class NavigationBar extends Component {
           <div>{renderGraphs()}</div>
           <div>{renderDeviceLoading()}</div>
           <div>{renderMainScreenMessage()}</div>
+          <div>{noDevicesAnimationFunction()}</div>
           <br />
           <br />
           <Grid container>
@@ -404,6 +430,20 @@ class NavigationBar extends Component {
 
     // console.log(data_retrieved);
     this.state.deviceInfo = [];
+
+    if (data_retrieved["device_name"].length == 0) {
+      this.state.noDevicesAnimation = true;
+      this.setState({
+        noDevicesAnimation: this.state.noDevicesAnimation,
+      });
+    }
+    else{
+      this.state.noDevicesAnimation = false;
+      this.setState({
+        noDevicesAnimation: this.state.noDevicesAnimation,
+      });
+
+    }
 
     for (var i = 0; i < data_retrieved["device_name"].length; i++) {
       this.state.deviceInfo.push({

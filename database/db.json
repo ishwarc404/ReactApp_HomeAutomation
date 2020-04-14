@@ -209,8 +209,12 @@
     {
       "username": "drasti",
       "devices": {
-        "device_name": [],
-        "device_ID": []
+        "device_name": [
+          "te"
+        ],
+        "device_ID": [
+          "t"
+        ]
       },
       "sensors": {
         "sensor_name": [],
