@@ -1,3 +1,11 @@
+## Instructions
+
+1. 4 servers:
+   - database/ -- json db server
+   - backend_scripts/ -- back_server.py
+   - express server for http streaming
+   - react server for app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
