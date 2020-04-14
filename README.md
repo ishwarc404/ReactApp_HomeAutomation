@@ -1,10 +1,13 @@
 ## Instructions
 
 1. 4 servers:
+
    - database/ -- json db server
    - backend_scripts/ -- back_server.py
    - express server for http streaming
    - react server for app
+
+   note: DoorControlViaWebsite.mp4 is not uploaded as it is too big - express server code
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
