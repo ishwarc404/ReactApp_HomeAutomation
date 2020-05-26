@@ -1,0 +1,238 @@
+{
+  "loginAuthentication": [
+    {
+      "id": 1,
+      "username": "ishwar",
+      "password": "ishwar"
+    },
+    {
+      "username": "drasti",
+      "password": "drasti",
+      "id": 2
+    },
+    {
+      "username": "shreya",
+      "password": "shreya",
+      "id": 3
+    }
+  ],
+  "deviceData": [
+    {
+      "id": 1,
+      "username": "ishwar",
+      "devices": {
+        "device_name": [
+          "LED BULB",
+          "SPEAKER",
+          "FAN"
+        ],
+        "device_ID": [
+          "led1",
+          "speaker",
+          "fan"
+        ]
+      },
+      "sensors": {
+        "sensor_name": [
+          "TEMPERATURE SENSOR",
+          "MOTION DETECTION"
+        ],
+        "sensor_ID": [
+          "temp",
+          "motion"
+        ],
+        "sensor_value": [
+          31,
+          "No activity"
+        ]
+      },
+      "usageData": [
+        {
+          "device_name": "LED BULB",
+          "device_usage": [
+            {
+              "day": 1,
+              "usage": 20
+            },
+            {
+              "day": 2,
+              "usage": 5
+            },
+            {
+              "day": 3,
+              "usage": 31
+            },
+            {
+              "day": 4,
+              "usage": 14
+            },
+            {
+              "day": 5,
+              "usage": 32
+            },
+            {
+              "day": 6,
+              "usage": 33
+            },
+            {
+              "day": 7,
+              "usage": 7
+            }
+          ]
+        },
+        {
+          "device_name": "SPEAKER",
+          "device_usage": [
+            {
+              "day": 1,
+              "usage": 5
+            },
+            {
+              "day": 2,
+              "usage": 12
+            },
+            {
+              "day": 3,
+              "usage": 44
+            },
+            {
+              "day": 4,
+              "usage": 32
+            },
+            {
+              "day": 5,
+              "usage": 5
+            },
+            {
+              "day": 6,
+              "usage": 31
+            },
+            {
+              "day": 7,
+              "usage": 14
+            }
+          ]
+        },
+        {
+          "device_name": "FAN",
+          "device_usage": [
+            {
+              "day": 1,
+              "usage": 3
+            },
+            {
+              "day": 2,
+              "usage": 9
+            },
+            {
+              "day": 3,
+              "usage": 13
+            },
+            {
+              "day": 4,
+              "usage": 34
+            },
+            {
+              "day": 5,
+              "usage": 9
+            },
+            {
+              "day": 6,
+              "usage": 13
+            },
+            {
+              "day": 7,
+              "usage": 88
+            }
+          ]
+        }
+      ],
+      "electricity_usage": [
+        {
+          "x": 1,
+          "y": 15
+        },
+        {
+          "x": 2,
+          "y": 13
+        },
+        {
+          "x": 3,
+          "y": 17
+        },
+        {
+          "x": 4,
+          "y": 13
+        },
+        {
+          "x": 5,
+          "y": 14
+        },
+        {
+          "x": 6,
+          "y": 16
+        },
+        {
+          "x": 7,
+          "y": 13
+        },
+        {
+          "x": 8,
+          "y": 19
+        },
+        {
+          "x": 9,
+          "y": 18
+        },
+        {
+          "x": 10,
+          "y": 17
+        },
+        {
+          "x": 11,
+          "y": 15
+        },
+        {
+          "x": 12,
+          "y": 14
+        },
+        {
+          "x": 13,
+          "y": 19
+        },
+        {
+          "x": 14,
+          "y": 14
+        }
+      ]
+    },
+    {
+      "username": "drasti",
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 2
+    },
+    {
+      "username": "shreya",
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 3
+    }
+  ]
+}
