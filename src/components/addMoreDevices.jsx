@@ -35,11 +35,14 @@ class AddMoreDevices extends Component {
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.addNewDevice = this.addNewDevice.bind(this);
+    this.alertUser = this.alertUser.bind(this);
   }
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <a href="https://i.ibb.co/FBn40vq/bill-drasti.png" download>
+        <Button variant="contained"  aria-label="add" >GENERATE INVOICE</Button> </a>&nbsp;&nbsp;
         <Button variant="contained"  aria-label="add" onClick={this.openDialog}><DevicesOtherIcon/>ADD DEVICES</Button>
         <Dialog
           className={classes.paper}
@@ -97,6 +100,9 @@ class AddMoreDevices extends Component {
     });
   }
 
+  alertUser(){
+    alert("Invoice Generating for user: drasti");
+  }
   async addNewDevice(){
     var apiObj = new apiService();
     let returnedData = await apiObj.addDeviceToDatabase({

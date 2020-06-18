@@ -14,12 +14,37 @@
       "username": "shreya",
       "password": "shreya",
       "id": 3
+    },
+    {
+      "username": null,
+      "password": null,
+      "id": 5
+    },
+    {
+      "username": "",
+      "password": "",
+      "id": 6
+    },
+    {
+      "username": null,
+      "password": null,
+      "id": 8
+    },
+    {
+      "username": "testing1",
+      "password": "testing1",
+      "id": 9
+    },
+    {
+      "username": null,
+      "password": null,
+      "id": 10
     }
   ],
   "deviceData": [
     {
       "id": 1,
-      "username": "ishwar",
+      "username": "drasti",
       "devices": {
         "device_name": [
           "LED BULB",
@@ -233,6 +258,91 @@
       },
       "usageData": [],
       "id": 3
+    },
+    
+    {
+      "username": null,
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 5
+    },
+    {
+      "username": "",
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 6
+    },
+    {
+      "username": "testing1",
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 7
+    },
+    {
+      "username": null,
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 8
+    },
+    {
+      "username": "testing1",
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 9
+    },
+    {
+      "username": null,
+      "devices": {
+        "device_name": [],
+        "device_ID": []
+      },
+      "sensors": {
+        "sensor_name": [],
+        "sensor_ID": [],
+        "sensor_value": []
+      },
+      "usageData": [],
+      "id": 10
     }
   ]
 }

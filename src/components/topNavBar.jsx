@@ -188,6 +188,7 @@ class NavigationBar extends Component {
               >
                 ABOUT US
               </Button>
+          
             </div>
           </div>
         );

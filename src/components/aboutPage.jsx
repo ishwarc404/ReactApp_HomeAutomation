@@ -2,7 +2,7 @@ import React, { useState, Component } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
+import TextField from "@material-ui/core/TextField";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 import ReactLoading from "react-loading";
@@ -22,6 +22,7 @@ const useStyles = (theme) => ({
 class AboutPage extends Component {
   constructor(props) {
     super();
+    this.alertUser = this.alertUser.bind(this);
   }
 
   render() {
@@ -124,8 +125,60 @@ class AboutPage extends Component {
             <source src="http://localhost:3002/video" type="video/mp4" />
           </video>
         </div>
+        <br/>
+        <br/>
+        <div class="d-flex justify-content-center">
+            <Typography variant="h1" component="h1" gutterBottom>
+              GET IN TOUCH
+            </Typography>
+        </div>
+        <div class="d-flex justify-content-center">
+        <form action="mailto:homeautomation@gmail.com" method="post" enctype="text/plain">
+            <Typography variant="h4" component="h2" gutterBottom>
+              Name
+            </Typography>
+                        <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              style={{ width: 550 }}
+            ></TextField>
+            <br /> <br />
+            <Typography variant="h4" component="h2" gutterBottom>
+              Email
+            </Typography>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="email"
+              style={{ width: 550 }}
+            ></TextField>
+            <br /> <br />
+          <Typography variant="h4" component="h2" gutterBottom>
+              Query
+            </Typography>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="comment"
+              style={{ width: 550 }}
+            ></TextField>
+            <br /> <br />
+             <Button
+              color="default"
+              variant ="contained"
+              onClick={this.alertUser}
+            type="submit"
+            >
+              CONTACT US
+            </Button>
+           </form>
+        </div>
       </FadeIn>
     );
+  }
+  alertUser(){
+    alert("Thank you for getting in touch with us Drasti Vadhar");
   }
 }
 
